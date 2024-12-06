@@ -1,0 +1,4 @@
+Main Text Color: #f0f0f0
+Main Background Color: #171717
+
+Use this colors while building your scene or creating your own css document.
