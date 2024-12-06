@@ -1,0 +1,2 @@
+1001;Dağ Bisikleti:/Image/products/bisiklet.jpg:15000
+1002;Çanta:/Image/products/canta.jpg:2000
