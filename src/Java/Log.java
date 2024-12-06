@@ -15,9 +15,18 @@ public class Log {
     
     public static boolean trySignUp(String username, String password, String password2)
     {
+        Map<String, String> userData = DataStore.getUserData();
+        
         if(validUsernamePassword(username, password, password2))
         {
-            DataStore.addUser(username, password);
+            if(userData.containsKey(username))
+            {
+                signUpNotification = "This username is already in use!";
+            }
+            else{
+                DataStore.addUser(username, password);
+                return true;
+            }
         }
         
         return false;
@@ -35,15 +44,15 @@ public class Log {
             return false;
         }
         
-        if(password.equals(password2))
+        if(!password.equals(password2))
         {
             signUpNotification = "Your passwords don't match!";
             return false;
         }
         
-        if(username.length() < 8)
+        if(username.length() < 5)
         {
-            signUpNotification = "Username can not be shorter than 8 characters!";
+            signUpNotification = "Username can not be shorter than 5 characters!";
             return false;
         }
         
@@ -55,9 +64,9 @@ public class Log {
         
         for(int i=0 ; i<username.length() ; i++)
         {
-            if(alphabet.indexOf(username.charAt(i)) == -1)
+            if(alphabet.indexOf(username.charAt(i)) == -1 && numbers.indexOf(username.charAt(i)) == -1)
             {
-                signUpNotification = "Username can only contain characters of alphabet!";
+                signUpNotification = "Username can only contain characters of alphabet and numbers!";
                 return false;
             }
         }

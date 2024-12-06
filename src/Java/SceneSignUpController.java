@@ -31,6 +31,13 @@ public class SceneSignUpController {
     {
         if(Log.trySignUp(usernameSignUpField.getText(), passwordSignUpField.getText(), passwordSignUpField2.getText()))
         {
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneSignUpSuccesfullAlert.fxml"));
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.show();
+            
             switchToSceneSignIn(e);
         }
         else{

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="198.0" prefWidth="344.0" style="-fx-background-color: #171717; -fx-border-width: 1.5; -fx-border-color: #a0a0a0;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="Java.SceneSignUpSuccesfullAlertController">
+   <children>
+      <Label layoutX="115.0" layoutY="64.0" prefHeight="20.0" prefWidth="174.0" text="You succesfully signed up!" textFill="#f0f0f0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="53.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/icons-logos/info.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="okButton" layoutX="141.0" layoutY="125.0" mnemonicParsing="false" onAction="#okButtonPressed" prefHeight="26.0" prefWidth="61.0" stylesheets="@../Css/CssButton.css" text="Ok" />
+   </children>
+</AnchorPane>

@@ -78,7 +78,7 @@ public class DataStore {
     {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         
-        if (stackTrace.length > 2 && stackTrace[2].getClassName().equals("Log")) 
+        if (stackTrace.length > 2 && stackTrace[2].getClassName().equals("Java.Log")) 
         {
             userData.put(username, password);
             saveUserData();
