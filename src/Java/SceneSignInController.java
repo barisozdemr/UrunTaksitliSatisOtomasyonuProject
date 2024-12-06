@@ -12,26 +12,27 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
 public class SceneSignInController {
     
     @FXML
-    private Label notificationLabel;
+    private Label notificationSignIn;
     @FXML
-    private TextField usernameField;
+    private TextField usernameSignInField;
     @FXML
-    private PasswordField passwordField;
+    private PasswordField passwordSignInField;
     
     public void signInButtonPressed(ActionEvent e) throws IOException //action
     {
-        if(Log.trySignIn(usernameField.getText(), passwordField.getText()))
+        if(Log.trySignIn(usernameSignInField.getText(), passwordSignInField.getText()))
         {
             openSceneMain(e);
         }
         else{
-            notificationLabel.setText("Username or password is incorrect");
+            notificationSignIn.setText("Username or password is incorrect");
         }
     }
     
@@ -40,11 +41,11 @@ public class SceneSignInController {
         switchToSceneSignUp(e);
     }
     
-    public void notificationSetNull(ActionEvent e) //clears notificationLabel
+    public void notificationSetNull(MouseEvent e) //clears notificationLabel
     {
-        if(! notificationLabel.getText().equals(null))
+        if(notificationSignIn.getText() != null)
         {
-            notificationLabel.setText("");
+            notificationSignIn.setText("");
         }
     }
     

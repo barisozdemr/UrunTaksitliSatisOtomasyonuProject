@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #171717;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.SceneSignUpController">
+<AnchorPane id="AnchorPane" onMouseClicked="#notificationSetNull" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #171717;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.SceneSignUpController">
    <children>
-      <TextField fx:id="usernameSignupField" layoutX="229.0" layoutY="212.0" prefHeight="26.0" prefWidth="350.0" promptText="Username" />
+      <TextField fx:id="usernameSignUpField" layoutX="229.0" layoutY="212.0" onMouseClicked="#notificationSetNull" prefHeight="26.0" prefWidth="350.0" promptText="Username" />
       <Label fx:id="mainLabel" layoutX="252.0" layoutY="109.0" text="Create New User" textFill="#f0f0f0">
          <font>
             <Font size="40.0" />
@@ -30,12 +30,12 @@
             <Font size="11.0" />
          </font>
       </Button>
-      <Label fx:id="notificationSignup" alignment="CENTER" layoutX="139.0" layoutY="353.0" prefHeight="18.0" prefWidth="530.0" textFill="#ff5252">
+      <Label fx:id="notificationSignUp" alignment="CENTER" layoutX="139.0" layoutY="353.0" prefHeight="18.0" prefWidth="530.0" textFill="#ff5252">
          <font>
             <Font size="11.0" />
          </font>
       </Label>
-      <PasswordField fx:id="passwordSignupField" layoutX="229.0" layoutY="262.0" prefHeight="26.0" prefWidth="350.0" promptText="Password" />
-      <PasswordField fx:id="passwordSignupField2" layoutX="229.0" layoutY="312.0" prefHeight="26.0" prefWidth="350.0" promptText="Password again" />
+      <PasswordField fx:id="passwordSignUpField" layoutX="229.0" layoutY="262.0" onMouseClicked="#notificationSetNull" prefHeight="26.0" prefWidth="350.0" promptText="Password" />
+      <PasswordField fx:id="passwordSignUpField2" layoutX="229.0" layoutY="312.0" onMouseClicked="#notificationSetNull" prefHeight="26.0" prefWidth="350.0" promptText="Password again" />
    </children>
 </AnchorPane>

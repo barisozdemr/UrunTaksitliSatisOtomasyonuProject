@@ -12,26 +12,49 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
 public class SceneSignUpController {
     
     @FXML
-    private Label notificationLabel;
+    private Label notificationSignUp;
     @FXML
-    private TextField usernameField;
+    private TextField usernameSignUpField;
     @FXML
-    private PasswordField passwordField;
+    private PasswordField passwordSignUpField;
+    @FXML
+    private PasswordField passwordSignUpField2;
     
-    public void signUpButtonPressed(ActionEvent e)
+    public void signUpButtonPressed(ActionEvent e) throws IOException
     {
-        
+        if(Log.trySignUp(usernameSignUpField.getText(), passwordSignUpField.getText(), passwordSignUpField2.getText()))
+        {
+            switchToSceneSignIn(e);
+        }
+        else{
+            if(Log.signUpNotification == null)
+            {
+                notificationSignUp.setText("Sign up was not succesfull due to unknown error");
+            }
+            else{
+                notificationSignUp.setText(Log.signUpNotification);
+            }
+        }
     }
     
     public void backToSignInButtonPressed(ActionEvent e) throws IOException
     {
         switchToSceneSignIn(e);
+    }
+    
+    public void notificationSetNull(MouseEvent e) //clears notificationLabel
+    {
+        if(notificationSignUp.getText() != null)
+        {
+            notificationSignUp.setText("");
+        }
     }
     
     public void switchToSceneSignIn(Event e) throws IOException //switches to signIn scene

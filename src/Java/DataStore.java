@@ -65,8 +65,6 @@ public class DataStore {
         catch(Exception e) {
             e.printStackTrace();
         }
-        
-        loadUserData();
     }
     
     public static Map<String, String> getUserData()
@@ -74,6 +72,17 @@ public class DataStore {
         Map<String, String> unmodifiableUserData = Collections.unmodifiableMap(userData);
         
         return unmodifiableUserData;
+    }
+    
+    public static void addUser(String username, String password)
+    {
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        
+        if (stackTrace.length > 2 && stackTrace[2].getClassName().equals("Log")) 
+        {
+            userData.put(username, password);
+            saveUserData();
+        }
     }
     
     public static void loadProductData()
@@ -126,8 +135,6 @@ public class DataStore {
         catch(Exception e) {
             e.printStackTrace();
         }
-        
-        loadProductData();
     }
     
     public static Map<String, ArrayList<String>> getProductData()
@@ -199,8 +206,6 @@ public class DataStore {
         catch(Exception e) {
             e.printStackTrace();
         }
-        
-        loadBankData();
     }
     
     public static Map<String, ArrayList<String>> getBankData()

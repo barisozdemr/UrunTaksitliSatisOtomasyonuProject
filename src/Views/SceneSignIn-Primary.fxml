@@ -7,21 +7,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #171717;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.SceneSignInController">
+<AnchorPane id="AnchorPane" onMouseClicked="#notificationSetNull" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #171717;" stylesheets="@../Css/CssSceneLogOperations.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.SceneSignInController">
    <children>
-      <Button fx:id="signInButton" layoutX="352.0" layoutY="362.0" mnemonicParsing="false" onAction="#signInButtonPressed" prefHeight="34.0" prefWidth="95.0" style="-fx-background-radius: 12;" text="login" textAlignment="CENTER">
+      <Button fx:id="signInButton" layoutX="352.0" layoutY="362.0" mnemonicParsing="false" onAction="#signInButtonPressed" prefHeight="34.0" prefWidth="95.0" style="-fx-background-radius: 12;" stylesheets="@../Css/CssButton.css" text="login" textAlignment="CENTER">
          <font>
             <Font size="13.0" />
          </font>
       </Button>
-      <TextField fx:id="usernameField" layoutX="244.0" layoutY="245.0" prefHeight="26.0" prefWidth="311.0" promptText="Username" />
-      <PasswordField fx:id="passwordField" layoutX="244.0" layoutY="299.0" prefHeight="26.0" prefWidth="311.0" promptText="Password" />
+      <TextField fx:id="usernameSignInField" layoutX="244.0" layoutY="245.0" onMouseClicked="#notificationSetNull" prefHeight="26.0" prefWidth="311.0" promptText="Username" stylesheets="@../Css/CssTextField.css" />
+      <PasswordField fx:id="passwordSignInField" layoutX="244.0" layoutY="299.0" onMouseClicked="#notificationSetNull" prefHeight="26.0" prefWidth="311.0" promptText="Password" stylesheets="@../Css/CssTextField.css" />
       <Label fx:id="mainLabel" alignment="CENTER" layoutX="279.0" layoutY="127.0" prefHeight="30.0" prefWidth="241.0" text="Sign In" textAlignment="CENTER" textFill="#f0f0f0">
          <font>
             <Font size="40.0" />
          </font>
       </Label>
-      <Label fx:id="notificationLabel" alignment="CENTER" layoutX="162.0" layoutY="343.0" prefHeight="18.0" prefWidth="475.0" textAlignment="CENTER" textFill="#ff5252">
+      <Label fx:id="notificationSignIn" alignment="CENTER" layoutX="162.0" layoutY="343.0" prefHeight="18.0" prefWidth="475.0" textAlignment="CENTER" textFill="#ff5252">
          <font>
             <Font size="11.0" />
          </font>
@@ -31,7 +31,7 @@
             <Font size="11.0" />
          </font>
       </Label>
-      <Button fx:id="backToSignUpButton" layoutX="422.0" layoutY="425.0" mnemonicParsing="false" onAction="#backToSignUpButtonPressed" prefHeight="26.0" prefWidth="75.0" text="Sign Up">
+      <Button fx:id="backToSignUpButton" layoutX="422.0" layoutY="425.0" mnemonicParsing="false" onAction="#backToSignUpButtonPressed" prefHeight="26.0" prefWidth="75.0" stylesheets="@../Css/CssButton.css" text="Sign Up">
          <font>
             <Font size="11.0" />
          </font>
