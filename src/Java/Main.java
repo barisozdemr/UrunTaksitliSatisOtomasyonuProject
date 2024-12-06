@@ -15,6 +15,10 @@ public class Main extends Application{
     
     @Override
     public void start(Stage stage) throws Exception {
+        DataStore.loadUserData();
+        DataStore.loadProductData();
+        DataStore.loadBankData();
+        
         Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneSignIn-Primary.fxml"));
         
         String SceneSignInCss = this.getClass().getResource("/css/CssSceneLogOperations.css").toExternalForm();
