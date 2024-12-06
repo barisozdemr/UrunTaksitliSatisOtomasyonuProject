@@ -12,8 +12,6 @@ import java.util.Map;
 
 public class DataStore {
     
-    public static String loggedUsersName;
-    
     private static final String USERDATA_FILE_PATH = "src/Data/userData.txt";
     private static HashMap<String, String> userData = new HashMap<>();
     //Example: Username -> Password
