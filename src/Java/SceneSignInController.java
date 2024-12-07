@@ -51,18 +51,20 @@ public class SceneSignInController {
     
     public void openSceneMain(Event e) throws IOException
     {
-        Stage oldStage = (Stage)((Node)e.getSource()).getScene().getWindow();
-        oldStage.close();
+        Stage oldStage = (Stage)((Node)e.getSource()).getScene().getWindow(); //get sign in stage
+        oldStage.close(); //close sign in stage
         
-        String CssSceneMain = this.getClass().getResource("/Css/CssSceneMain.css").toExternalForm();
+        String CssSceneMain = this.getClass().getResource("/Css/CssSceneMain.css").toExternalForm(); // get css contents
         
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneMain.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneMain.fxml")); //get fxml contents (Main Scene)
         
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(CssSceneMain);
+        Scene scene = new Scene(root); //create new stage with main scene roots
+        scene.getStylesheets().add(CssSceneMain); //add css contents to the new scene
         
-        Stage stage = new Stage();
-        stage.setScene(scene);
+        Stage stage = new Stage(); //create new stage
+        stage.setScene(scene); //set stage's scene
+        stage.setTitle("Taksitli Al!"); //set stage title
+        stage.getIcons().add(DataStore.image); //set program logo
         stage.setResizable(false);
         stage.show();
     }

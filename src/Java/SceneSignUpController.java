@@ -31,14 +31,7 @@ public class SceneSignUpController {
     {
         if(Log.trySignUp(usernameSignUpField.getText(), passwordSignUpField.getText(), passwordSignUpField2.getText()))
         {
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneSignUpSuccesfullAlert.fxml"));
-            
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setResizable(false);
-            stage.show();
-            
-            switchToSceneSignIn(e);
+            openSignUpSuccesfullStage(e);
         }
         else{
             if(Log.signUpNotification == null)
@@ -77,5 +70,19 @@ public class SceneSignUpController {
         
         stage.setScene(scene); //set event's stage's scene
         stage.show();
+    }
+    
+    public void openSignUpSuccesfullStage(Event e) throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneSignUpSuccesfullAlert.fxml")); //get fxml contents
+
+        Stage stage = new Stage(); //creating new stage
+        stage.setScene(new Scene(root)); //set stage scene
+        stage.setTitle("Bilgi"); //set stage title
+        stage.getIcons().add(DataStore.image); //set program logo
+        stage.setResizable(false);
+        stage.show();
+
+        switchToSceneSignIn(e);
     }
 }

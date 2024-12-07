@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.image.Image;
 
 public class DataStore {
+    
+    public static final Image image = new Image("/Images/icons-logos/programLogo.jpg");
     
     private static final String USERDATA_FILE_PATH = "src/Data/userData.txt";
     private static HashMap<String, String> userData = new HashMap<>();
@@ -58,8 +61,6 @@ public class DataStore {
             {
                 write.write(username + ";" + userData.get(username));
                 write.newLine();
-                
-                System.out.println(username + ";" + userData.get(username));
             }
         }
         catch(Exception e) {
@@ -128,8 +129,6 @@ public class DataStore {
                 String line = ( productID + ";" + productName + ":" + productImagePath + ":" + productPrice );
                 write.write(line);
                 write.newLine();
-                
-                System.out.println(productID + ";" + productName + ":" + productImagePath + ":" + productPrice);
             }
         }
         catch(Exception e) {
@@ -199,8 +198,6 @@ public class DataStore {
                 line += ( Month6InstallmentInterest + ":" + Month9InstallmentInterest + ":" + Month12InstallmentInterest );
                 write.write(line);
                 write.newLine();
-                
-                System.out.println(line);
             }
         }
         catch(Exception e) {
