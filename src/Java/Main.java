@@ -27,8 +27,6 @@ public class Main extends Application{
         scene.getStylesheets().add(SceneSignInCss);
         
         stage.setScene(scene);
-        stage.setTitle("Taksitli Al!"); //set stage title
-        stage.getIcons().add(DataStore.image); //set program logo
         stage.setResizable(false);
         stage.show();
     }
