@@ -1,0 +1,82 @@
+
+.gridpane{
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-background-color: #292929;
+    -fx-padding: 10 0 0 0;
+}
+
+.scrollpane{
+    -fx-padding: 5 0 0 0;
+}
+
+.vbox{
+    -fx-background-color: #171717;
+    -fx-spacing: 20;
+}
+
+.hbox{
+    -fx-background-color: #171717;
+    -fx-spacing: 20;
+    -fx-padding: 10 0 0 10;
+}
+
+.linkLabel{
+    
+}
+
+.linkLabel:hover{
+    -fx-underline: true;
+}
+
+.image-view{
+    -fx-padding: 20 15 15 20;
+}
+
+.menu-bar{
+    -fx-background-color: #292929;
+}
+
+.menu{
+    -fx-background-color: transparent;
+}
+
+.menu .label{
+    -fx-text-fill: #f0f0f0;
+}
+
+.menu:hover{
+    -fx-background-color: #555555;
+}
+
+.menu:showing{
+    -fx-background-color: #909090;
+}
+
+.menu-item{
+    -fx-background-color: #555555;
+}
+
+.menu-item .label{
+    -fx-text-fill: #f0f0f0;
+}
+
+.menu-item:hover{
+    -fx-background-color: #757575;
+}
+
+#sortMenu {
+    -fx-background-color: #454545;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+#sortMenu:hover{
+    -fx-background-color: #606060;
+}
+
+#sortMenu:showing{
+    -fx-background-color: #909090;
+}
