@@ -1,2 +1,9 @@
-1001;Dağ Bisikleti:/Image/products/bisiklet.jpg:15000
-1002;Çanta:/Image/products/canta.jpg:2000
+1001;Elektrikli Bisiklet:/Images/products/bisiklet.jpg:32000
+1002;Nike Çanta:/Images/products/canta.jpg:2500
+1003;Rotring 800 kalem:/Images/products/kalem.jpg:1800
+1004;Adidas Ayakkabı:/Images/products/ayakkabi.jpg:2000
+1005;Kışlık Mont:/Images/products/mont.jpg:1700
+1006;Seiko Saat:/Images/products/saat.jpg:18000
+1007;İphone 16 Telefon:/Images/products/telefon.jpg:80000
+1008;Razer Kulaklık:/Images/products/kulaklik.jpg:4100
+1009;Zowie Mouse:/Images/products/mouse.jpg:5300
