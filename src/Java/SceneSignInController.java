@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -29,6 +30,7 @@ public class SceneSignInController {
     {
         if(Log.trySignIn(usernameSignInField.getText(), passwordSignInField.getText()))
         {
+            DataStore.loggedUsersname = usernameSignInField.getText();
             openSceneMain(e);
         }
         else{
@@ -39,6 +41,18 @@ public class SceneSignInController {
     public void backToSignUpButtonPressed(ActionEvent e) throws IOException //action
     {
         switchToSceneSignUp(e);
+    }
+    
+    public void enterKeyPressed(KeyEvent e) throws IOException
+    {
+        if(Log.trySignIn(usernameSignInField.getText(), passwordSignInField.getText()))
+        {
+            DataStore.loggedUsersname = usernameSignInField.getText();
+            openSceneMain(e);
+        }
+        else{
+            notificationSignIn.setText("Username or password is incorrect");
+        }
     }
     
     public void notificationSetNull(MouseEvent e) //clears notificationLabel
@@ -63,6 +77,8 @@ public class SceneSignInController {
         
         Stage stage = new Stage(); //create new stage
         stage.setScene(scene); //set stage's scene
+        stage.setTitle("Taksitli Al!"); //set stage title
+        stage.getIcons().add(DataStore.image); //set program logo
         stage.setResizable(false);
         stage.show();
     }

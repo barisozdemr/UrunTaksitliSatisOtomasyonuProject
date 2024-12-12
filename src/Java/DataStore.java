@@ -13,6 +13,10 @@ import javafx.scene.image.Image;
 
 public class DataStore {
     
+    public static String loggedUsersname;
+    
+    public static final Image image = new Image("/Images/icons-logos/programLogo.jpg");
+    
     private static final String USERDATA_FILE_PATH = "src/Data/userData.txt";
     private static HashMap<String, String> userData = new HashMap<>();
     //Example: Username -> Password
