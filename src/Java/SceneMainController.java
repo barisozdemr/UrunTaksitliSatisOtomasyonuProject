@@ -1,11 +1,15 @@
 
 package Java;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.ScrollPane;
@@ -16,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class SceneMainController {
     
@@ -56,6 +61,64 @@ public class SceneMainController {
         displayProductsRandom();
         sortProductData();
     }
+    
+    //-------------------------------------------------------------------------------------------------- user methods
+    
+    public void changeUsernameItemSelected(ActionEvent e) throws IOException //action
+    {
+        openChangeUsernameStage();
+    }
+    
+    public void changePasswordItemSelected(ActionEvent e) throws IOException //action
+    {
+        openChangePasswordStage();
+    }
+    
+    public void logoutItemSelected(ActionEvent e) throws IOException //action
+    {
+        openLogoutAlertStage();
+    }
+    
+    public void openChangeUsernameStage() throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneChangeUsername.fxml"));
+        
+        Stage stage = new Stage();
+        
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        stage.setTitle("Taksitle!");
+        stage.getIcons().add(DataStore.image);
+        stage.show();
+    }
+    
+    public void openChangePasswordStage() throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneChangePassword.fxml"));
+        
+        Stage stage = new Stage();
+        
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        stage.setTitle("Taksitle!");
+        stage.getIcons().add(DataStore.image);
+        stage.show();
+    }
+    
+    public void openLogoutAlertStage() throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneLogoutAlert.fxml"));
+        
+        Stage stage = new Stage();
+        
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        stage.setTitle("Bilgi");
+        stage.getIcons().add(DataStore.image);
+        stage.show();
+    }
+    
+    //-------------------------------------------------------------------------------------------------- sorting methods
     
     public void sortRandomSelected(ActionEvent e) //action
     {

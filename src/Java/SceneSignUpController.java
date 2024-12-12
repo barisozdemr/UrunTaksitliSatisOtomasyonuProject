@@ -69,6 +69,7 @@ public class SceneSignUpController {
         scene.getStylesheets().add(CssSceneLogOperations); //add css contents to our scene
         
         stage.setScene(scene); //set event's stage's scene
+        stage.setTitle("Taksitle! - Sign In");
         stage.show();
     }
     
@@ -78,7 +79,8 @@ public class SceneSignUpController {
 
         Stage stage = new Stage(); //creating new stage
         stage.setScene(new Scene(root)); //set stage scene
-        stage.setTitle("Info"); //set stage title
+        stage.setTitle("Bilgi"); //set stage title
+        stage.getIcons().add(DataStore.image); //set program logo
         stage.setResizable(false);
         stage.show();
 
