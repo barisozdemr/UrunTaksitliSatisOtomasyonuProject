@@ -33,7 +33,7 @@
                   <Font name="Dosis Light" size="21.0" />
                </font>
             </Label>
-            <HBox layoutX="974.0" layoutY="-2.0" prefHeight="80.0" prefWidth="226.0">
+            <HBox layoutX="974.0" layoutY="-2.0" prefHeight="80.0" prefWidth="221.0">
                <children>
                   <Line endY="70.0" startY="-5.0" strokeWidth="5.0" />
                   <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">

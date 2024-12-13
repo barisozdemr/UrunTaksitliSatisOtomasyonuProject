@@ -61,7 +61,7 @@ public class SceneSignUpController {
     {
         Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneSignIn-Primary.fxml")); //get fxml contens
         
-        String CssSceneLogOperations = this.getClass().getResource("/css/CssSceneLogOperations.css").toExternalForm(); //get css contents
+        String CssSceneLogOperations = this.getClass().getResource("/Css/CssSceneLogOperations.css").toExternalForm(); //get css contents
         
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow(); //get the stage of the event
         

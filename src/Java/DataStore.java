@@ -13,6 +13,8 @@ import javafx.scene.image.Image;
 
 public class DataStore {
     
+    public static String chosenProductsID;
+    
     public static String loggedUsersname;
     
     public static final Image programLogo = new Image("/Images/icons-logos/programLogo.jpg");

@@ -15,6 +15,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -58,7 +59,8 @@ public class SceneMainController {
         row1.setMinHeight(250);
         gridPane.getRowConstraints().add(row1);
         
-        displayProductsRandom();
+        displayProductsRandom(); //-------------------------------- primary display of products
+        
         sortProductData();
     }
     
@@ -151,9 +153,12 @@ public class SceneMainController {
         
         Parent root = quitAlertSceneLoader.load();
         
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/Css/CssSceneLogOperations.css");
+        
         Stage stage = new Stage();
         
-        stage.setScene(new Scene(root));
+        stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("Warning");
         stage.getIcons().add(DataStore.programLogo);
@@ -208,24 +213,41 @@ public class SceneMainController {
             HBox hbox = new HBox();
             hbox.getStyleClass().add("hbox");
             
+            String productID = entry.getKey(); //ID
             String productName = entry.getValue().get(0); //name
-            String productPath = entry.getValue().get(1); //path
+            String productImagePath = entry.getValue().get(1); //path
             String productPrice = entry.getValue().get(2); //price
             
             Label label1 = new Label(productName);
             label1.setStyle("-fx-text-fill: white;-fx-font-size: 25");
             label1.getStyleClass().add("linkLabel");
             label1.setOnMouseEntered(event -> label1.setCursor(Cursor.HAND));
+            label1.setOnMouseClicked(event -> {
+                try {
+                    switchToSceneProduct(event, productID);
+                }
+                catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
             
             Label label2 = new Label(productPrice+" TL");
             label2.setStyle("-fx-text-fill: white;-fx-font-size: 15");
             
-            Image image = new Image(productPath);
+            Image image = new Image(productImagePath);
             
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(180);
             imageView.setFitWidth(180);
             imageView.setOnMouseEntered(event -> imageView.setCursor(Cursor.HAND));
+            imageView.setOnMouseClicked(event -> {
+                try {
+                    switchToSceneProduct(event, productID);
+                }
+                catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
             
             hbox.getChildren().add(imageView);
             
@@ -261,24 +283,41 @@ public class SceneMainController {
             HBox hbox = new HBox();
             hbox.getStyleClass().add("hbox");
             
+            String productID = ID; //ID
             String productName = productData.get(ID).get(0); //name
-            String productPath = productData.get(ID).get(1); //path
+            String productImagePath = productData.get(ID).get(1); //path
             String productPrice = productData.get(ID).get(2); //price
             
             Label label1 = new Label(productName);
             label1.setStyle("-fx-text-fill: white;-fx-font-size: 25");
             label1.getStyleClass().add("linkLabel");
             label1.setOnMouseEntered(event -> label1.setCursor(Cursor.HAND));
+            label1.setOnMouseClicked(event -> {
+                try {
+                    switchToSceneProduct(event, productID);
+                }
+                catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
             
             Label label2 = new Label(productPrice+" TL");
             label2.setStyle("-fx-text-fill: white;-fx-font-size: 15");
             
-            Image image = new Image(productPath);
+            Image image = new Image(productImagePath);
             
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(180);
             imageView.setFitWidth(180);
             imageView.setOnMouseEntered(event -> imageView.setCursor(Cursor.HAND));
+            imageView.setOnMouseClicked(event -> {
+                try {
+                    switchToSceneProduct(event, productID);
+                }
+                catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
             
             hbox.getChildren().add(imageView);
             
@@ -313,24 +352,41 @@ public class SceneMainController {
             HBox hbox = new HBox();
             hbox.getStyleClass().add("hbox");
             
+            String productID = sortedID_LowToHigh.get(i); //ID
             String productName = productData.get(sortedID_LowToHigh.get(i)).get(0); //name
-            String productPath = productData.get(sortedID_LowToHigh.get(i)).get(1); //path
+            String productImagePath = productData.get(sortedID_LowToHigh.get(i)).get(1); //path
             String productPrice = productData.get(sortedID_LowToHigh.get(i)).get(2); //price
             
             Label label1 = new Label(productName);
             label1.setStyle("-fx-text-fill: white;-fx-font-size: 25");
             label1.getStyleClass().add("linkLabel");
             label1.setOnMouseEntered(event -> label1.setCursor(Cursor.HAND));
+            label1.setOnMouseClicked(event -> {
+                try {
+                    switchToSceneProduct(event, productID);
+                }
+                catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
             
             Label label2 = new Label(productPrice+" TL");
             label2.setStyle("-fx-text-fill: white;-fx-font-size: 15");
             
-            Image image = new Image(productPath);
+            Image image = new Image(productImagePath);
             
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(180);
             imageView.setFitWidth(180);
             imageView.setOnMouseEntered(event -> imageView.setCursor(Cursor.HAND));
+            imageView.setOnMouseClicked(event -> {
+                try {
+                    switchToSceneProduct(event, productID);
+                }
+                catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
             
             hbox.getChildren().add(imageView);
             
@@ -386,5 +442,28 @@ public class SceneMainController {
                 }
             }
         }
+    }
+    
+    //-------------------------------------------------------------------------------------------------- product methods
+    
+    public void switchToSceneProduct(MouseEvent e, String productID) throws IOException
+    {
+        DataStore.chosenProductsID = productID;
+        
+        FXMLLoader sceneProductLoader = new FXMLLoader(getClass().getResource("/Views/SceneProduct.fxml"));
+        
+        SceneProductController spc = new SceneProductController(scrollPane.getScene());
+        
+        sceneProductLoader.setController(spc);
+        
+        Parent root = sceneProductLoader.load();
+        
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/Css/CssSceneProduct.css");
+        
+        Stage stage = (Stage)scrollPane.getScene().getWindow();
+        
+        stage.setScene(scene);
+        stage.show();
     }
 }
