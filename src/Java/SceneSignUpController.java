@@ -80,7 +80,7 @@ public class SceneSignUpController {
         Stage stage = new Stage(); //creating new stage
         stage.setScene(new Scene(root)); //set stage scene
         stage.setTitle("Bilgi"); //set stage title
-        stage.getIcons().add(DataStore.image); //set program logo
+        stage.getIcons().add(DataStore.programLogo); //set program logo
         stage.setResizable(false);
         stage.show();
 

@@ -82,7 +82,7 @@ public class SceneSignInController {
         Stage stage = new Stage(); //create new stage
         stage.setScene(scene); //set stage's scene
         stage.setTitle("Taksitle!"); //set stage title
-        stage.getIcons().add(DataStore.image); //set program logo
+        stage.getIcons().add(DataStore.programLogo); //set program logo
         stage.setResizable(false);
         stage.show();
     }
