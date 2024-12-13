@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" onMouseClicked="#notificationSetNull" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #171717;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.SceneSignUpController">
+<AnchorPane id="AnchorPane" onMouseClicked="#notificationSetNull" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #171717;" stylesheets="@../Css/CssSceneLogOperations.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.SceneSignUpController">
    <children>
       <TextField fx:id="usernameSignUpField" layoutX="229.0" layoutY="212.0" onMouseClicked="#notificationSetNull" prefHeight="26.0" prefWidth="350.0" promptText="Username" />
       <Label fx:id="mainLabel" layoutX="252.0" layoutY="109.0" text="Create New User" textFill="#f0f0f0">
@@ -15,7 +15,7 @@
             <Font size="40.0" />
          </font>
       </Label>
-      <Button fx:id="signUpButton" layoutX="356.0" layoutY="372.0" mnemonicParsing="false" onAction="#signUpButtonPressed" prefHeight="34.0" prefWidth="95.0" style="-fx-background-radius: 12;" text="Sign Up">
+      <Button fx:id="signUpButton" layoutX="356.0" layoutY="372.0" mnemonicParsing="false" onAction="#signUpButtonPressed" prefHeight="34.0" prefWidth="95.0" style="-fx-background-radius: 12;" stylesheets="@../Css/CssButton.css" text="Sign Up">
          <font>
             <Font size="13.0" />
          </font>
@@ -25,7 +25,7 @@
             <Font size="11.0" />
          </font>
       </Label>
-      <Button fx:id="backToSignInButton" layoutX="451.0" layoutY="428.0" mnemonicParsing="false" onAction="#backToSignInButtonPressed" prefHeight="26.0" prefWidth="78.0" text="Sign In">
+      <Button fx:id="backToSignInButton" layoutX="451.0" layoutY="428.0" mnemonicParsing="false" onAction="#backToSignInButtonPressed" prefHeight="26.0" prefWidth="78.0" stylesheets="@../Css/CssButton.css" text="Sign In">
          <font>
             <Font size="11.0" />
          </font>
