@@ -28,7 +28,7 @@ public class Main extends Application{
         
         stage.setScene(scene);
         stage.setTitle("Taksitle! - Sign In"); //set stage title
-        stage.getIcons().add(DataStore.image); //set program logo
+        stage.getIcons().add(DataStore.programLogo); //set program logo
         stage.setResizable(false);
         stage.show();
     }

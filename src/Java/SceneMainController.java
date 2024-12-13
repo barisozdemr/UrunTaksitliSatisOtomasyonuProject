@@ -79,6 +79,11 @@ public class SceneMainController {
         openLogoutAlertStage();
     }
     
+    public void quitItemSelected(ActionEvent e) throws IOException //action
+    {
+        openQuitAlertStage();
+    }
+    
     public void openChangeUsernameStage() throws IOException
     {
         Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneChangeUsername.fxml"));
@@ -88,7 +93,7 @@ public class SceneMainController {
         stage.setScene(new Scene(root));
         stage.setResizable(false);
         stage.setTitle("Taksitle!");
-        stage.getIcons().add(DataStore.image);
+        stage.getIcons().add(DataStore.programLogo);
         stage.show();
     }
     
@@ -101,20 +106,45 @@ public class SceneMainController {
         stage.setScene(new Scene(root));
         stage.setResizable(false);
         stage.setTitle("Taksitle!");
-        stage.getIcons().add(DataStore.image);
+        stage.getIcons().add(DataStore.programLogo);
         stage.show();
     }
     
     public void openLogoutAlertStage() throws IOException
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneLogoutAlert.fxml"));
+        FXMLLoader logoutAlertSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneLogoutAlert.fxml"));
+        
+        SceneLogoutAlertController slac = new SceneLogoutAlertController((Stage)scrollPane.getScene().getWindow());
+        
+        logoutAlertSceneLoader.setController(slac);
+        
+        Parent root = logoutAlertSceneLoader.load();
         
         Stage stage = new Stage();
         
         stage.setScene(new Scene(root));
         stage.setResizable(false);
-        stage.setTitle("Bilgi");
-        stage.getIcons().add(DataStore.image);
+        stage.setTitle("Warning");
+        stage.getIcons().add(DataStore.programLogo);
+        stage.show();
+    }
+    
+    public void openQuitAlertStage() throws IOException
+    {
+        FXMLLoader quitAlertSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneQuitAlert.fxml"));
+        
+        SceneQuitAlertController sqac = new SceneQuitAlertController((Stage)scrollPane.getScene().getWindow());
+        
+        quitAlertSceneLoader.setController(sqac);
+        
+        Parent root = quitAlertSceneLoader.load();
+        
+        Stage stage = new Stage();
+        
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        stage.setTitle("Warning");
+        stage.getIcons().add(DataStore.programLogo);
         stage.show();
     }
     

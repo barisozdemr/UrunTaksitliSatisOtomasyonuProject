@@ -48,9 +48,10 @@
                      <menus>
                         <Menu fx:id="usernameMenu" mnemonicParsing="false" text="Username">
                            <items>
-                              <MenuItem fx:id="changeUsernameItem" mnemonicParsing="false" text="Change Username" />
-                              <MenuItem fx:id="changePasswordItem" mnemonicParsing="false" text="Change Password" />
-                              <MenuItem fx:id="logoutItem" mnemonicParsing="false" text="Logout" />
+                              <MenuItem fx:id="changeUsernameItem" mnemonicParsing="false" onAction="#changeUsernameItemSelected" text="Change Username" />
+                              <MenuItem fx:id="changePasswordItem" mnemonicParsing="false" onAction="#changePasswordItemSelected" text="Change Password" />
+                              <MenuItem fx:id="logoutItem" mnemonicParsing="false" onAction="#logoutItemSelected" text="Logout" />
+                              <MenuItem fx:id="quitItem" mnemonicParsing="false" onAction="#quitItemSelected" text="Quit" />
                            </items>
                         </Menu>
                      </menus>

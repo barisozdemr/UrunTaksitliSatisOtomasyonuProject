@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="198.0" prefWidth="344.0" style="-fx-background-color: #171717; -fx-border-width: 1.5; -fx-border-color: #a0a0a0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.SceneSignUpSuccesfullAlertController">
+<AnchorPane id="AnchorPane" prefHeight="198.0" prefWidth="344.0" style="-fx-background-color: #171717; -fx-border-width: 1.5; -fx-border-color: #a0a0a0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="95.0" layoutY="64.0" prefHeight="20.0" prefWidth="216.0" text="Are you sure you want to logout?" textFill="#f0f0f0">
          <font>
@@ -19,7 +19,7 @@
             <Image url="@../Images/icons-logos/questionMark.png" />
          </image>
       </ImageView>
-      <Button layoutX="189.0" layoutY="125.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="61.0" stylesheets="@../Css/CssButton.css" text="Yes" />
-      <Button layoutX="93.0" layoutY="125.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" stylesheets="@../Css/CssButton.css" text="Cancel" />
+      <Button fx:id="yesButton" layoutX="189.0" layoutY="125.0" mnemonicParsing="false" onAction="#yesButtonPressed" prefHeight="26.0" prefWidth="61.0" stylesheets="@../Css/CssButton.css" text="Yes" />
+      <Button fx:id="cancelButton" layoutX="93.0" layoutY="125.0" mnemonicParsing="false" onAction="#cancelButtonPressed" prefHeight="26.0" prefWidth="62.0" stylesheets="@../Css/CssButton.css" text="Cancel" />
    </children>
 </AnchorPane>
