@@ -6,6 +6,10 @@ import java.util.Map;
 public class Log {
     public static String signUpNotification;
     
+    public static String changeUsernameNotification;
+    
+    public static String changePasswordNotification;
+    
     public static boolean trySignIn(String username, String password)
     {
         Map<String, String> userData = DataStore.getUserData();
@@ -17,7 +21,7 @@ public class Log {
     {
         Map<String, String> userData = DataStore.getUserData();
         
-        if(validUsernamePassword(username, password, password2))
+        if(validUsernamePasswordControl(username, password, password2))
         {
             if(userData.containsKey(username))
             {
@@ -32,7 +36,7 @@ public class Log {
         return false;
     }
     
-    public static boolean validUsernamePassword(String username, String password, String password2)
+    public static boolean validUsernamePasswordControl(String username, String password, String password2)
     {
         String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String numbers = "0123456789";
@@ -76,6 +80,131 @@ public class Log {
             if(alphabet.indexOf(password.charAt(i)) == -1 && numbers.indexOf(password.charAt(i)) == -1 && specCharacters.indexOf(password.charAt(i)) == -1)
             {
                 signUpNotification = "Your password contains invalid characters!";
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    //--------------------------------------------------------------------- User Information Change
+    
+    public static boolean tryChangeUsername(String username, String password)
+    {
+        Map<String, String> userData = DataStore.getUserData();
+        
+        if(userData.get(DataStore.loggedUsersname).equals(password)) //- correct password control
+        {
+            if(validUsernameControl(username)) //----------------------- valid username control
+            {
+                if(!DataStore.loggedUsersname.equals(username)) //------------ not same username control
+                {
+                    if(!userData.containsKey(username)) //--------------- username not already in use control
+                    {
+                        DataStore.changeUsername(username); //----------- change username
+                        return true;
+                    }
+                    else{
+                        changeUsernameNotification = "This username is already in use!";
+                    }
+                }
+                else{
+                    changeUsernameNotification = "You already have the same username!";
+                }
+            }
+        }
+        else{
+            changeUsernameNotification = "Your password is incorrect!";
+        }
+        
+        
+        return false;
+    }
+    
+    public static boolean tryChangePassword(String oldPassword, String newPassword, String newPasswordAgain)
+    {
+        Map<String, String> userData = DataStore.getUserData();
+        
+        if(userData.get(DataStore.loggedUsersname).equals(oldPassword)) //--------- correct password control
+        {
+            if(validPasswordControl(newPassword, newPasswordAgain)) //------------- valid new password control
+            {
+                if(!userData.get(DataStore.loggedUsersname).equals(newPassword)) //- not same password control
+                {
+                    DataStore.changePassword(newPassword); //---------------------- change password
+                    return true;
+                }
+                else{
+                    changePasswordNotification = "You already have the same password!";
+                }
+            }
+        }
+        else{
+            changePasswordNotification = "Your password is incorrect!";
+        }
+        
+        
+        return false;
+    }
+    
+    public static boolean validUsernameControl(String username)
+    {
+        String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String numbers = "0123456789";
+        
+        if(username.isBlank())
+        {
+            changeUsernameNotification = "You can not leave blank lines!";
+            return false;
+        }
+        
+        if(username.length() < 5)
+        {
+            changeUsernameNotification = "Username can not be shorter than 5 characters!";
+            return false;
+        }
+        
+        for(int i=0 ; i<username.length() ; i++)
+        {
+            if(alphabet.indexOf(username.charAt(i)) == -1 && numbers.indexOf(username.charAt(i)) == -1)
+            {
+                changeUsernameNotification = "Username can only contain characters of alphabet and numbers!";
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    public static boolean validPasswordControl(String newPassword, String newPasswordAgain)
+    {
+        String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String numbers = "0123456789";
+        String specCharacters = ",._-*+/=&%$#";
+        
+        if(newPassword.isBlank() || newPasswordAgain.isBlank())
+        {
+            changePasswordNotification = "You can not leave blank lines!";
+            return false;
+        }
+        
+        if(!newPassword.equals(newPasswordAgain))
+        {
+            changePasswordNotification = "Your passwords don't match!";
+            return false;
+        }
+        
+        if(newPassword.length() < 8)
+        {
+            changePasswordNotification = "Password can not be shorter than 8 characters!";
+            return false;
+        }
+        
+        for(int i=0 ; i<newPassword.length() ; i++)
+        {
+            if(alphabet.indexOf(newPassword.charAt(i)) == -1 && numbers.indexOf(newPassword.charAt(i)) == -1 && specCharacters.indexOf(newPassword.charAt(i)) == -1)
+            {
+                changePasswordNotification = "Your password contains invalid characters!";
                 return false;
             }
         }

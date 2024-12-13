@@ -86,26 +86,38 @@ public class SceneMainController {
     
     public void openChangeUsernameStage() throws IOException
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneChangeUsername.fxml"));
+        FXMLLoader usernameChangeSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneChangeUsername.fxml"));
+        
+        SceneChangeUsernameController scuc = new SceneChangeUsernameController((Stage)scrollPane.getScene().getWindow());
+        
+        usernameChangeSceneLoader.setController(scuc);
+        
+        Parent root = usernameChangeSceneLoader.load();
         
         Stage stage = new Stage();
         
         stage.setScene(new Scene(root));
         stage.setResizable(false);
-        stage.setTitle("Taksitle!");
+        stage.setTitle("Taksitle! - Change Username");
         stage.getIcons().add(DataStore.programLogo);
         stage.show();
     }
     
     public void openChangePasswordStage() throws IOException
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneChangePassword.fxml"));
+        FXMLLoader changePasswordSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneChangePassword.fxml"));
+        
+        SceneChangePasswordController scpc = new SceneChangePasswordController((Stage)scrollPane.getScene().getWindow());
+        
+        changePasswordSceneLoader.setController(scpc);
+        
+        Parent root = changePasswordSceneLoader.load();
         
         Stage stage = new Stage();
         
         stage.setScene(new Scene(root));
         stage.setResizable(false);
-        stage.setTitle("Taksitle!");
+        stage.setTitle("Taksitle! - Change Password");
         stage.getIcons().add(DataStore.programLogo);
         stage.show();
     }

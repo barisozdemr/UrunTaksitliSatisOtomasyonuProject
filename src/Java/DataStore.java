@@ -35,6 +35,8 @@ public class DataStore {
     //Example: 101 -> {Yapı Kredi, /Images/icons-logos/yapiKredi.jpg, 1.5, 3, 4, 5}
     //Example Text File: 101;Yapı Kredi:/Images/icons-logos/yapiKredi.jpg:1,5:3:4:5
     
+    //-------------------------------------------------------------------------------------------------------- User Methods
+    
     public static void loadUserData()
     {
         try(BufferedReader read = new BufferedReader(new FileReader(USERDATA_FILE_PATH)))
@@ -87,6 +89,30 @@ public class DataStore {
             saveUserData();
         }
     }
+    
+    public static void changeUsername(String newUsername)
+    {
+        String password = userData.get(loggedUsersname);
+        
+        userData.remove(loggedUsersname);
+        
+        userData.put(newUsername, password);
+        
+        loggedUsersname = null;
+        
+        saveUserData();
+    }
+    
+    public static void changePassword(String newPassword)
+    {
+        userData.replace(loggedUsersname, newPassword);
+        
+        loggedUsersname = null;
+        
+        saveUserData();
+    }
+    
+    //-------------------------------------------------------------------------------------------------------- Product Methods
     
     public static void loadProductData()
     {
@@ -149,6 +175,8 @@ public class DataStore {
         
         return Collections.unmodifiableMap(unmodifiableProductData);
     }
+    
+    //-------------------------------------------------------------------------------------------------------- Bank Methods
     
     public static void loadBankData()
     {
