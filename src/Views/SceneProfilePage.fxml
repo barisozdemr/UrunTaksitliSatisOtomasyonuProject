@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #292929;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.SceneProfilePageController">
+   <top>
+      <AnchorPane prefHeight="70.0" prefWidth="1200.0" style="-fx-background-color: #292929;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="53.0" fitWidth="59.0" layoutX="72.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/icons-logos/programLogoClear.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="140.0" layoutY="26.0" prefHeight="30.0" prefWidth="179.0" text="Taksitle!" textFill="#f0f0f0">
+               <font>
+                  <Font name="Dosis Light" size="21.0" />
+               </font>
+            </Label>
+            <HBox layoutX="974.0" layoutY="-2.0" prefHeight="80.0" prefWidth="221.0">
+               <children>
+                  <Line endY="70.0" startY="-5.0" strokeWidth="5.0" />
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/icons-logos/user2.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="15.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <MenuBar prefHeight="20" prefWidth="50" scaleShape="false">
+                     <menus>
+                        <Menu fx:id="usernameMenu" mnemonicParsing="false" text="Username">
+                           <items>
+                              <MenuItem fx:id="changeUsernameItem" mnemonicParsing="false" onAction="#changeUsernameItemSelected" text="Change Username" />
+                              <MenuItem fx:id="changePasswordItem" mnemonicParsing="false" onAction="#changePasswordItemSelected" text="Change Password" />
+                              <MenuItem fx:id="logoutItem" mnemonicParsing="false" onAction="#logoutItemSelected" text="Logout" />
+                              <MenuItem fx:id="quitItem" mnemonicParsing="false" onAction="#quitItemSelected" text="Quit" />
+                           </items>
+                        </Menu>
+                     </menus>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </MenuBar>
+               </children>
+            </HBox>
+            <Line endX="1060.0" endY="34.0" layoutX="135.0" layoutY="45.0" startX="-135.0" startY="34.0" strokeWidth="5.0" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="296.0" prefWidth="1200.0" style="-fx-background-color: #171717;">
+               <children>
+                  <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="143.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/icons-logos/user2.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="usernameLabel" layoutX="361.0" layoutY="105.0" text="Label" textFill="#f0f0f0">
+                     <font>
+                        <Font size="50.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="changeUsernameButton" layoutX="827.0" layoutY="79.0" mnemonicParsing="false" onAction="#changeUsernameItemSelected" prefHeight="26.0" prefWidth="196.0" stylesheets="@../Css/CssSceneProfilePage.css" text="Change Username">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="changePasswordButton" layoutX="827.0" layoutY="112.0" mnemonicParsing="false" onAction="#changePasswordItemSelected" prefHeight="26.0" prefWidth="196.0" stylesheets="@../Css/CssSceneProfilePage.css" text="Change Password">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="logoutButton" layoutX="827.0" layoutY="145.0" mnemonicParsing="false" onAction="#logoutItemSelected" prefHeight="26.0" prefWidth="196.0" stylesheets="@../Css/CssSceneProfilePage.css" text="Logout">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="quitButton" layoutX="827.0" layoutY="178.0" mnemonicParsing="false" onAction="#quitItemSelected" prefHeight="26.0" prefWidth="196.0" stylesheets="@../Css/CssSceneProfilePage.css" text="Quit">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="paymentsAnchorPane" prefHeight="374.0" prefWidth="1200.0" style="-fx-background-color: #171717;">
+               <children>
+                  <Label layoutX="138.0" layoutY="23.0" text="Your Payments:" textFill="#f0f0f0">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
