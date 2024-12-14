@@ -317,6 +317,11 @@ public class SceneProductController {
     
     //-------------------------------------------------------------------------------------------------- user methods
     
+    public void yourProfileItemSelected(ActionEvent e) throws IOException //action
+    {
+        openProfilePage();
+    }
+    
     public void changeUsernameItemSelected(ActionEvent e) throws IOException //action
     {
         openChangeUsernameStage();
@@ -335,6 +340,18 @@ public class SceneProductController {
     public void quitItemSelected(ActionEvent e) throws IOException //action
     {
         openQuitAlertStage();
+    }
+    
+    public void openProfilePage() throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneProfilePage.fxml"));
+        
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/Css/CssSceneProfilePage.css");
+        
+        Stage stage = (Stage)borderPane.getScene().getWindow();
+        
+        stage.setScene(scene);
     }
     
     public void openChangeUsernameStage() throws IOException

@@ -40,7 +40,7 @@ public class SceneMainController {
     
     public void initialize()
     {
-        usernameMenu.setText(DataStore.loggedUsersname);
+        usernameMenu.setText(DataStore.loggedUsersName);
         
         usernameMenu.setStyle("-fx-min-height: 70; -fx-min-width: 150;");
         
@@ -66,6 +66,11 @@ public class SceneMainController {
     
     //-------------------------------------------------------------------------------------------------- user methods
     
+    public void yourProfileItemSelected(ActionEvent e) throws IOException //action
+    {
+        openProfilePage();
+    }
+    
     public void changeUsernameItemSelected(ActionEvent e) throws IOException //action
     {
         openChangeUsernameStage();
@@ -84,6 +89,18 @@ public class SceneMainController {
     public void quitItemSelected(ActionEvent e) throws IOException //action
     {
         openQuitAlertStage();
+    }
+    
+    public void openProfilePage() throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneProfilePage.fxml"));
+        
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/Css/CssSceneProfilePage.css");
+        
+        Stage stage = (Stage)scrollPane.getScene().getWindow();
+        
+        stage.setScene(scene);
     }
     
     public void openChangeUsernameStage() throws IOException
@@ -239,6 +256,7 @@ public class SceneMainController {
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(180);
             imageView.setFitWidth(180);
+            imageView.getStyleClass().add("image-view");
             imageView.setOnMouseEntered(event -> imageView.setCursor(Cursor.HAND));
             imageView.setOnMouseClicked(event -> {
                 try {
@@ -464,6 +482,5 @@ public class SceneMainController {
         Stage stage = (Stage)scrollPane.getScene().getWindow();
         
         stage.setScene(scene);
-        stage.show();
     }
 }
