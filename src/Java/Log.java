@@ -1,6 +1,7 @@
 
 package Java;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class Log {
@@ -12,14 +13,14 @@ public class Log {
     
     public static boolean trySignIn(String username, String password)
     {
-        Map<String, String> userData = DataStore.getUserData();
+        Map<String, ArrayList<String>> userData = DataStore.getUserData();
         
-        return userData.containsKey(username) && userData.get(username).equals(password);
+        return userData.containsKey(username) && userData.get(username).get(0).equals(password);
     }
     
     public static boolean trySignUp(String username, String password, String password2)
     {
-        Map<String, String> userData = DataStore.getUserData();
+        Map<String, ArrayList<String>> userData = DataStore.getUserData();
         
         if(validUsernamePasswordControl(username, password, password2))
         {
@@ -91,13 +92,13 @@ public class Log {
     
     public static boolean tryChangeUsername(String username, String password)
     {
-        Map<String, String> userData = DataStore.getUserData();
+        Map<String, ArrayList<String>> userData = DataStore.getUserData();
         
-        if(userData.get(DataStore.loggedUsersname).equals(password)) //- correct password control
+        if(userData.get(DataStore.loggedUsersName).get(0).equals(password)) //- correct password control
         {
             if(validUsernameControl(username)) //----------------------- valid username control
             {
-                if(!DataStore.loggedUsersname.equals(username)) //------------ not same username control
+                if(!DataStore.loggedUsersName.equals(username)) //------------ not same username control
                 {
                     if(!userData.containsKey(username)) //--------------- username not already in use control
                     {
@@ -123,13 +124,13 @@ public class Log {
     
     public static boolean tryChangePassword(String oldPassword, String newPassword, String newPasswordAgain)
     {
-        Map<String, String> userData = DataStore.getUserData();
+        Map<String, ArrayList<String>> userData = DataStore.getUserData();
         
-        if(userData.get(DataStore.loggedUsersname).equals(oldPassword)) //--------- correct password control
+        if(userData.get(DataStore.loggedUsersName).get(0).equals(oldPassword)) //--------- correct password control
         {
             if(validPasswordControl(newPassword, newPasswordAgain)) //------------- valid new password control
             {
-                if(!userData.get(DataStore.loggedUsersname).equals(newPassword)) //- not same password control
+                if(!userData.get(DataStore.loggedUsersName).equals(newPassword)) //- not same password control
                 {
                     DataStore.changePassword(newPassword); //---------------------- change password
                     return true;

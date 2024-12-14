@@ -15,14 +15,15 @@ public class DataStore {
     
     public static String chosenProductsID;
     
-    public static String loggedUsersname;
+    public static String loggedUsersName;
     
     public static final Image programLogo = new Image("/Images/icons-logos/programLogo.jpg");
     
     private static final String USERDATA_FILE_PATH = "src/Data/userData.txt";
-    private static HashMap<String, String> userData = new HashMap<>();
-    //Example: Username -> Password
-    //Example Text File: baris;baris123
+    private static HashMap<String, ArrayList<String>> userData = new HashMap<>();
+    //Example: Username -> {Password, 1st Month Payment, 2nd Month Payment, ... , 12nd Month Payment}
+    //Example: baris -> {baris123, 1500, 1500, 1500, 600, 600, 600, 0, 0, 0, 0, 0, 0}
+    //Example Text File: baris;baris123:1500:1500:1500:600:600:600:0:0:0:0:0:0
     
     private static final String PRODUCTDATA_FILE_PATH = "src/Data/productData.txt";
     private static HashMap<String, ArrayList<String>> productData = new HashMap<>();
@@ -50,7 +51,27 @@ public class DataStore {
                 
                 if(data.length==2)
                 {
-                    userData.put(data[0], data[1]);
+                    String[] data2 = data[1].split(":");
+                    
+                    if(data2.length==13)
+                    {
+                        ArrayList<String> data2List = new ArrayList<>();
+                        data2List.add(data2[0]);
+                        data2List.add(data2[1]);
+                        data2List.add(data2[2]);
+                        data2List.add(data2[3]);
+                        data2List.add(data2[4]);
+                        data2List.add(data2[5]);
+                        data2List.add(data2[6]);
+                        data2List.add(data2[7]);
+                        data2List.add(data2[8]);
+                        data2List.add(data2[9]);
+                        data2List.add(data2[10]);
+                        data2List.add(data2[11]);
+                        data2List.add(data2[12]);
+                        
+                        userData.put(data[0], data2List);
+                    }
                 }
             }
         }
@@ -65,7 +86,23 @@ public class DataStore {
         {
             for(String username : userData.keySet())
             {
-                write.write(username + ";" + userData.get(username));
+                String password = userData.get(username).get(0);
+                String firstMonthPayment = userData.get(username).get(1);
+                String secondMonthPayment = userData.get(username).get(2);
+                String thirdMonthPayment = userData.get(username).get(3);
+                String fourthMonthPayment = userData.get(username).get(4);
+                String fifthMonthPayment = userData.get(username).get(5);
+                String sixthMonthPayment = userData.get(username).get(6);
+                String seventhMonthPayment = userData.get(username).get(7);
+                String eighthMonthPayment = userData.get(username).get(8);
+                String ninthMonthPayment = userData.get(username).get(9);
+                String tenthMonthPayment = userData.get(username).get(10);
+                String eleventhMonthPayment = userData.get(username).get(11);
+                String twelfthMonthPayment = userData.get(username).get(12);
+                
+                write.write(username+";"+password+":"+firstMonthPayment+":"+secondMonthPayment+":"+thirdMonthPayment+":");
+                write.write(fourthMonthPayment+":"+fifthMonthPayment+":"+sixthMonthPayment+":"+seventhMonthPayment+":"+eighthMonthPayment+":");
+                write.write(ninthMonthPayment+":"+tenthMonthPayment+":"+eleventhMonthPayment+":"+twelfthMonthPayment);
                 write.newLine();
             }
         }
@@ -74,11 +111,16 @@ public class DataStore {
         }
     }
     
-    public static Map<String, String> getUserData()
+    public static Map<String, ArrayList<String>> getUserData()
     {
-        Map<String, String> unmodifiableUserData = Collections.unmodifiableMap(userData);
+        Map<String, ArrayList<String>> unmodifiableUserData = new HashMap<>();
         
-        return unmodifiableUserData;
+        for (Map.Entry<String, ArrayList<String>> entry : userData.entrySet())
+        {
+            unmodifiableUserData.put(entry.getKey(), new ArrayList<>(Collections.unmodifiableList(entry.getValue())));
+        }
+        
+        return Collections.unmodifiableMap(unmodifiableUserData);
     }
     
     public static void addUser(String username, String password)
@@ -87,29 +129,35 @@ public class DataStore {
         
         if (stackTrace.length > 2 && stackTrace[2].getClassName().equals("Java.Log")) 
         {
-            userData.put(username, password);
-            saveUserData();
+            ArrayList<String> theUsersData = new ArrayList<>();
+            
+            theUsersData.add(password);
+            
+            for(int i=0 ; i<12 ; i++)
+            {
+                theUsersData.add("0");
+            }
         }
     }
     
     public static void changeUsername(String newUsername)
     {
-        String password = userData.get(loggedUsersname);
+        ArrayList<String> theUsersData = userData.get(loggedUsersName);
         
-        userData.remove(loggedUsersname);
+        userData.remove(loggedUsersName);
         
-        userData.put(newUsername, password);
+        userData.put(newUsername, theUsersData);
         
-        loggedUsersname = null;
+        loggedUsersName = null;
         
         saveUserData();
     }
     
     public static void changePassword(String newPassword)
     {
-        userData.replace(loggedUsersname, newPassword);
+        userData.get(loggedUsersName).set(0, newPassword);
         
-        loggedUsersname = null;
+        loggedUsersName = null;
         
         saveUserData();
     }
