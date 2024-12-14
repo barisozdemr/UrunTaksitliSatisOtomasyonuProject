@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -63,7 +64,7 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane prefHeight="65.0" prefWidth="1200.0" style="-fx-background-color: #171717;">
+            <AnchorPane prefHeight="37.0" prefWidth="1200.0" style="-fx-background-color: #171717;">
                <children>
                   <AnchorPane fx:id="backButtonBackground" layoutX="-2.0" onMouseEntered="#setBackButtonBackgroundBrighter" onMouseExited="#setBackButtonBackgroundDarker" prefHeight="35.0" prefWidth="74.0" style="-fx-background-color: #353535;">
                      <children>
@@ -79,11 +80,11 @@
                   <Line endY="34.0" layoutX="72.0" layoutY="-2.0" strokeWidth="5.0" />
                </children>
             </AnchorPane>
-            <VBox>
+            <VBox prefHeight="658.0" prefWidth="1200.0">
                <children>
-                  <AnchorPane prefHeight="361.0" prefWidth="1200.0" style="-fx-background-color: #171717;">
+                  <AnchorPane prefHeight="279.0" prefWidth="1200.0" style="-fx-background-color: #171717;">
                      <children>
-                        <ImageView fx:id="productImageView" fitHeight="275.0" fitWidth="275.0" layoutX="235.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="productImageView" fitHeight="252.0" fitWidth="246.0" layoutX="259.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Images/products/kalem.jpg" />
                            </image>
@@ -100,7 +101,11 @@
                         </Label>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="paymentsAnchorPane" prefHeight="411.0" prefWidth="1200.0" style="-fx-background-color: #171717;" />
+                  <ScrollPane fx:id="paymentsScrollPane" prefHeight="354.0" prefWidth="1200.0">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                  </ScrollPane>
                </children>
             </VBox>
          </children>
