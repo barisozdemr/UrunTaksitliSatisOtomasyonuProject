@@ -23,7 +23,7 @@
       <AnchorPane prefHeight="78.0" prefWidth="896.0" style="-fx-background-color: #292929;" BorderPane.alignment="CENTER">
          <children>
             <Line endX="1060.0" endY="33.400001525878906" layoutX="135.0" layoutY="45.0" startX="-134.99998474121094" startY="33.399993896484375" strokeWidth="5.0" />
-            <ImageView fitHeight="53.0" fitWidth="59.0" layoutX="72.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="programLogo" fitHeight="53.0" fitWidth="59.0" layoutX="72.0" layoutY="12.0" onMouseClicked="#programLogoClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/icons-logos/programLogoClear.png" />
                </image>
@@ -48,6 +48,7 @@
                      <menus>
                         <Menu fx:id="usernameMenu" mnemonicParsing="false" text="Username">
                            <items>
+                              <MenuItem fx:id="yourProfileItem" mnemonicParsing="false" onAction="#yourProfileItemSelected" text="Your Profile" />
                               <MenuItem fx:id="changeUsernameItem" mnemonicParsing="false" onAction="#changeUsernameItemSelected" text="Change Username" />
                               <MenuItem fx:id="changePasswordItem" mnemonicParsing="false" onAction="#changePasswordItemSelected" text="Change Password" />
                               <MenuItem fx:id="logoutItem" mnemonicParsing="false" onAction="#logoutItemSelected" text="Logout" />

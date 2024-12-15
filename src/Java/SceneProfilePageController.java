@@ -7,15 +7,21 @@ import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class SceneProfilePageController {
     
+    @FXML
+    private ImageView programLogo;
     @FXML
     private Menu usernameMenu;
     @FXML
@@ -29,11 +35,32 @@ public class SceneProfilePageController {
     
     public void initialize()
     {
+        programLogo.setOnMouseEntered(event -> setCursorToHand(event));
+        
         usernameMenu.setText(loggedUsersName);
         
         usernameMenu.setStyle("-fx-min-height: 70; -fx-min-width: 150;");
         
         usernameLabel.setText(loggedUsersName);
+    }
+    
+    public void programLogoClicked(MouseEvent e) throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneMain.fxml"));
+        
+        String CssSceneMain = this.getClass().getResource("/Css/CssSceneMain.css").toExternalForm();
+        
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(CssSceneMain);
+        
+        Stage stage = (Stage)paymentsAnchorPane.getScene().getWindow();
+        
+        stage.setScene(scene);
+    }
+    
+    public void setCursorToHand(MouseEvent e)
+    {
+        ((Node)e.getSource()).setCursor(Cursor.HAND);
     }
     
     //-------------------------------------------------------------------------------------------------- user methods

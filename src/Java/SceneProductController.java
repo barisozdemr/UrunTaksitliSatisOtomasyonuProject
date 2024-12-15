@@ -34,6 +34,8 @@ public class SceneProductController {
     @FXML
     private BorderPane borderPane;
     @FXML
+    private ImageView programLogo;
+    @FXML
     private Menu usernameMenu;
     @FXML
     private AnchorPane backButtonBackground;
@@ -57,6 +59,8 @@ public class SceneProductController {
     
     public void initialize()
     {
+        programLogo.setOnMouseEntered(event -> setCursorToHand(event));
+        
         usernameMenu.setText(DataStore.loggedUsersName);
         
         usernameMenu.setStyle("-fx-min-height: 70; -fx-min-width: 150;");
@@ -86,6 +90,20 @@ public class SceneProductController {
         Stage stage = (Stage)borderPane.getScene().getWindow();
         
         stage.setScene(mainScene);
+    }
+    
+    public void programLogoClicked(MouseEvent e) throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneMain.fxml"));
+        
+        String CssSceneMain = this.getClass().getResource("/Css/CssSceneMain.css").toExternalForm();
+        
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(CssSceneMain);
+        
+        Stage stage = (Stage)borderPane.getScene().getWindow();
+        
+        stage.setScene(scene);
     }
     
     public void setCursorToHand(MouseEvent e)
