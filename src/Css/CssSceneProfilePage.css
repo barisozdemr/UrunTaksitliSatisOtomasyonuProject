@@ -17,11 +17,20 @@
 }
 
 .grid-pane{
-    -fx-hgap: 10;
+    -fx-hgap: 5;
     -fx-vgap: 10;
-    -fx-background-color: #171717;
-    -fx-border-color: #909090;
-    -fx-border-width: 2;
+    -fx-background-color: #202020;
+    -fx-border-color: #606060;
+    -fx-border-width: 1;
+}
+
+.grid-pane .label{
+    -fx-text-fill: #f0f0f0;
+}
+
+.vbox{
+    -fx-background-color: #292929;
+    -fx-spacing: 5;
 }
 
 .menu-bar{

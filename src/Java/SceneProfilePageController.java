@@ -1,6 +1,7 @@
 
 package Java;
 
+import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -16,6 +17,11 @@ import javafx.scene.control.Menu;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 public class SceneProfilePageController {
@@ -42,6 +48,8 @@ public class SceneProfilePageController {
         usernameMenu.setStyle("-fx-min-height: 70; -fx-min-width: 150;");
         
         usernameLabel.setText(loggedUsersName);
+        
+        buildPayments();
     }
     
     public void programLogoClicked(MouseEvent e) throws IOException
@@ -61,6 +69,98 @@ public class SceneProfilePageController {
     public void setCursorToHand(MouseEvent e)
     {
         ((Node)e.getSource()).setCursor(Cursor.HAND);
+    }
+    
+    public void buildPayments()
+    {
+        Map<String, ArrayList<String>> userData = DataStore.getUserData();
+        
+        GridPane gridPane = new GridPane();
+        
+        AnchorPane.setTopAnchor(gridPane, 120.0);
+        AnchorPane.setLeftAnchor(gridPane, 44.0);
+        
+        gridPane.getStyleClass().add("grid-pane");
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setMinWidth(1100);
+        
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPercentWidth(100 / 12.0);
+        gridPane.getColumnConstraints().add(col1);
+        gridPane.getColumnConstraints().add(col1);
+        gridPane.getColumnConstraints().add(col1);
+        gridPane.getColumnConstraints().add(col1);
+        gridPane.getColumnConstraints().add(col1);
+        gridPane.getColumnConstraints().add(col1);
+        gridPane.getColumnConstraints().add(col1);
+        gridPane.getColumnConstraints().add(col1);
+        gridPane.getColumnConstraints().add(col1);
+        gridPane.getColumnConstraints().add(col1);
+        gridPane.getColumnConstraints().add(col1);
+        gridPane.getColumnConstraints().add(col1);
+        
+        RowConstraints row1 = new RowConstraints();
+        row1.setMinHeight(100);
+        gridPane.getRowConstraints().add(row1);
+        
+        for(int i=0 ; i<12 ; i++)
+        {
+            VBox vbox = new VBox();
+            vbox.getStyleClass().add("vbox");
+            
+            Label label;
+            
+            if(i==0)
+            {
+                label = new Label(String.valueOf(i+1)+"st Month's");
+                label.setStyle("-fx-padding: 8 0 0 11;");
+            }
+            else if(i==1)
+            {
+                label = new Label(String.valueOf(i+1)+"nd Month's");
+                label.setStyle("-fx-padding: 8 0 0 11;");
+            }
+            else if(i==2)
+            {
+                label = new Label(String.valueOf(i+1)+"rd Month's");
+                label.setStyle("-fx-padding: 8 0 0 11;");
+            }
+            else if(i==9 || i==10 || i==11)
+            {
+                label = new Label(String.valueOf(i+1)+"th Month's");
+                label.setStyle("-fx-padding: 8 0 0 6;");
+            }
+            else{
+                label = new Label(String.valueOf(i+1)+"th Month's");
+                label.setStyle("-fx-padding: 8 0 0 11;");
+            }
+            
+            Label label2 = new Label("Payment");
+            label2.setStyle("-fx-padding: 0 0 0 20");
+            
+            Line line = new Line();
+            line.setStartX(0);
+            line.setStartY(25);
+            line.setEndX(87);
+            line.setEndY(25);
+            line.setStrokeWidth(1);
+            line.setStroke(Color.web("#606060"));
+            
+            String payment = userData.get(DataStore.loggedUsersName).get(i+1);
+            
+            Label label3 = new Label(payment+" TL");
+            label3.setStyle("-fx-padding: 8 0 0 7;");
+            
+            vbox.getChildren().add(label);
+            vbox.getChildren().add(label2);
+            vbox.getChildren().add(line);
+            vbox.getChildren().add(label3);
+            
+            gridPane.add(vbox, i, 0);
+        }
+        
+        paymentsAnchorPane.getChildren().add(gridPane);
     }
     
     //-------------------------------------------------------------------------------------------------- user methods
