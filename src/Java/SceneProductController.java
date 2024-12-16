@@ -50,7 +50,7 @@ public class SceneProductController {
     
     private Scene mainScene;
     
-    private String productID = DataStore.chosenProductsID;
+    private final String productID = DataStore.chosenProductsID;
     
     public SceneProductController(Scene mainScene)
     {

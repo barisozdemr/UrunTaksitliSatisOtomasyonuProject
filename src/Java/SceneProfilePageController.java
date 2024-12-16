@@ -35,7 +35,7 @@ public class SceneProfilePageController {
     @FXML
     private AnchorPane paymentsAnchorPane;
     
-    private String loggedUsersName = DataStore.loggedUsersName;
+    private final String loggedUsersName = DataStore.loggedUsersName;
     
     private Map<String, ArrayList<String>> userData = DataStore.getUserData();
     
