@@ -48,7 +48,7 @@ public class SceneProductController {
     @FXML
     private ScrollPane paymentsScrollPane;
     
-    private Scene mainScene;
+    private final Scene mainScene;
     
     private final String productID = DataStore.chosenProductsID;
     
