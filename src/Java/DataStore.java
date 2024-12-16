@@ -123,7 +123,7 @@ public class DataStore {
         return Collections.unmodifiableMap(unmodifiableUserData);
     }
     
-    public static void addUser(String username, String password)
+    public static boolean addUser(String username, String password)
     {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         
@@ -137,7 +137,13 @@ public class DataStore {
             {
                 theUsersData.add("0");
             }
+            
+            userData.put(username, theUsersData);
+            
+            return true;
         }
+        
+        return false;
     }
     
     public static void changeUsername(String newUsername)
@@ -160,6 +166,27 @@ public class DataStore {
         loggedUsersName = null;
         
         saveUserData();
+    }
+    
+    public static boolean updatePayments(int months, double singlePayment)
+    {
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        
+        if (stackTrace.length > 2 && stackTrace[2].getClassName().equals("Java.Buy")) 
+        {
+            for(int i=1 ; i<months+1 ; i++)
+            {
+                double oldMonthsPayment = Double.parseDouble(userData.get(loggedUsersName).get(i));
+            
+                String newMonthsPayment = String.valueOf(oldMonthsPayment + singlePayment);
+            
+                userData.get(loggedUsersName).set(i, newMonthsPayment);
+            }
+            
+            return true;
+        }
+        
+        return false;
     }
     
     //-------------------------------------------------------------------------------------------------------- Product Methods

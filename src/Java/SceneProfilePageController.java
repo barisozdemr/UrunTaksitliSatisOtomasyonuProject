@@ -54,6 +54,11 @@ public class SceneProfilePageController {
     
     public void programLogoClicked(MouseEvent e) throws IOException
     {
+        openSceneMain();
+    }
+    
+    public void openSceneMain() throws IOException
+    {
         Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneMain.fxml"));
         
         String CssSceneMain = this.getClass().getResource("/Css/CssSceneMain.css").toExternalForm();
@@ -147,9 +152,9 @@ public class SceneProfilePageController {
             line.setStrokeWidth(1);
             line.setStroke(Color.web("#606060"));
             
-            String payment = userData.get(DataStore.loggedUsersName).get(i+1);
+            double payment = Double.parseDouble(userData.get(DataStore.loggedUsersName).get(i+1));
             
-            Label label3 = new Label(payment+" TL");
+            Label label3 = new Label(String.format("%.2f", payment)+" TL");
             label3.setStyle("-fx-padding: 8 0 0 7;");
             
             vbox.getChildren().add(label);

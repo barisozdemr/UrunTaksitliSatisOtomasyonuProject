@@ -29,8 +29,7 @@ public class Log {
                 signUpNotification = "This username is already in use!";
             }
             else{
-                DataStore.addUser(username, password);
-                return true;
+                return DataStore.addUser(username, password);
             }
         }
         

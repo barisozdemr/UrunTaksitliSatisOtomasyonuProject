@@ -3,6 +3,7 @@ package Java;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,6 +51,8 @@ public class SceneProductController {
     
     private final Scene mainScene;
     
+    private final ToggleGroup paymentToggle = new ToggleGroup();
+    
     private final String productID = DataStore.chosenProductsID;
     
     public SceneProductController(Scene mainScene)
@@ -93,6 +96,11 @@ public class SceneProductController {
     }
     
     public void programLogoClicked(MouseEvent e) throws IOException
+    {
+        openSceneMain();
+    }
+    
+    public void openSceneMain() throws IOException
     {
         Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneMain.fxml"));
         
@@ -159,14 +167,13 @@ public class SceneProductController {
         
         RowConstraints row1 = new RowConstraints();
         row1.setMinHeight(100);
-        gridPane.getRowConstraints().add(row1);
-        gridPane.getRowConstraints().add(row1);
-        
-        ToggleGroup paymentToggle = new ToggleGroup();
         
         int i=0;
+        
         for(Map.Entry<String, ArrayList<String>> entry : bankData.entrySet())
         {
+            gridPane.getRowConstraints().add(row1);
+            
             for(int j=0 ; j<6 ; j++)
             {
                 if(j==0)
@@ -326,11 +333,31 @@ public class SceneProductController {
         Button buyButton = new Button("Buy");
         buyButton.setId("paymentsBuyButton");
         buyButton.setOnMouseEntered(event -> setCursorToHand(event));
+        buyButton.setOnMouseClicked(event -> buyButtonPressed(event));
         AnchorPane.setTopAnchor(buyButton, Double.parseDouble(String.valueOf(i*100))+85);
         AnchorPane.setLeftAnchor(buyButton, 500.0);
         paymentsAnchorPane.getChildren().add(buyButton);
         
         paymentsScrollPane.setContent(paymentsAnchorPane);
+    }
+    
+    public void buyButtonPressed(MouseEvent e)
+    {
+        if(paymentToggle.getSelectedToggle() != null)
+        {
+            String[] data = ((RadioButton)paymentToggle.getSelectedToggle()).getText().split(";");
+            
+            String months = data[0];
+            String singlePayment = data[1].replace(",", ".");
+            
+            if(Buy.tryBuy(months, singlePayment))
+            {
+                
+            }
+            else{
+                
+            }
+        }
     }
     
     //-------------------------------------------------------------------------------------------------- user methods

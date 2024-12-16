@@ -1,0 +1,19 @@
+
+package Java;
+
+public class Buy {
+    
+    public static String buyNotification;
+    
+    public static boolean tryBuy(String months, String singlePayment)
+    {
+        if(DataStore.updatePayments(Integer.parseInt(months), Double.parseDouble(singlePayment)))
+        {
+            return true;
+        }
+        else{
+            buyNotification = "The purchase could not be completed for an unknown error!";
+            return false;
+        }
+    }
+}
