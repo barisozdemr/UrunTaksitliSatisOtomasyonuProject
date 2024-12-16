@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -333,7 +335,14 @@ public class SceneProductController {
         Button buyButton = new Button("Buy");
         buyButton.setId("paymentsBuyButton");
         buyButton.setOnMouseEntered(event -> setCursorToHand(event));
-        buyButton.setOnMouseClicked(event -> buyButtonPressed(event));
+        buyButton.setOnMouseClicked(event -> {
+            try {
+                buyButtonPressed(event);
+            }
+            catch (IOException ex) {
+                Logger.getLogger(SceneProductController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         AnchorPane.setTopAnchor(buyButton, Double.parseDouble(String.valueOf(i*100))+85);
         AnchorPane.setLeftAnchor(buyButton, 500.0);
         paymentsAnchorPane.getChildren().add(buyButton);
@@ -341,7 +350,7 @@ public class SceneProductController {
         paymentsScrollPane.setContent(paymentsAnchorPane);
     }
     
-    public void buyButtonPressed(MouseEvent e)
+    public void buyButtonPressed(MouseEvent e) throws IOException
     {
         if(paymentToggle.getSelectedToggle() != null)
         {
@@ -352,12 +361,27 @@ public class SceneProductController {
             
             if(Buy.tryBuy(months, singlePayment))
             {
+                openPurchaseAlert();
                 
+                openSceneMain();
             }
             else{
-                
+                openPurchaseAlert();
             }
         }
+    }
+    
+    public void openPurchaseAlert() throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/ScenePurchaseAlert.fxml"));
+        
+        Stage stage = new Stage();
+        
+        stage.setScene(new Scene(root));
+        stage.setTitle("Taksitle! - Info");
+        stage.getIcons().add(DataStore.programLogo);
+        stage.setResizable(false);
+        stage.show();
     }
     
     //-------------------------------------------------------------------------------------------------- user methods

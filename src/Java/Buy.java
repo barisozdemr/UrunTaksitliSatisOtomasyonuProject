@@ -9,6 +9,7 @@ public class Buy {
     {
         if(DataStore.updatePayments(Integer.parseInt(months), Double.parseDouble(singlePayment)))
         {
+            buyNotification = "The purchase completed succesfully!";
             return true;
         }
         else{
