@@ -31,7 +31,7 @@ public class SceneSignInController {
     {
         if(Log.trySignIn(usernameSignInField.getText(), passwordSignInField.getText()))
         {
-            DataStore.loggedUsersname = usernameSignInField.getText();
+            DataStore.loggedUsersName = usernameSignInField.getText();
             openSceneMain(e);
         }
         else{
@@ -50,7 +50,7 @@ public class SceneSignInController {
         {
             if(Log.trySignIn(usernameSignInField.getText(), passwordSignInField.getText()))
             {
-                DataStore.loggedUsersname = usernameSignInField.getText();
+                DataStore.loggedUsersName = usernameSignInField.getText();
                 openSceneMain(e);
             }
             else{
