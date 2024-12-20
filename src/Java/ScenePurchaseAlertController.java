@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class ScenePurchaseAlertController {
+public class ScenePurchaseAlertController implements IOkAlert {
     @FXML
     private Button okButton;
     @FXML
