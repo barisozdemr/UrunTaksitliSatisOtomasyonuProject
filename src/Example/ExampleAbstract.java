@@ -3,12 +3,17 @@ package Example;
 
 public abstract class ExampleAbstract {
     
-    public String name;
+    public String id;
     
-    public ExampleAbstract(String name)
+    public ExampleAbstract(String id)
     {
-        this.name = name;
+        this.id = id;
     }
     
     public abstract void display();
+    
+    public String getId()
+    {
+        return id;
+    }
 }

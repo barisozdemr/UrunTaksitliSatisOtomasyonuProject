@@ -3,17 +3,17 @@ package Example;
 
 public class Example extends ExampleAbstract {
     
-    private String id;
+    private String name;
     
-    public Example(String name, String id)
+    public Example(String id, String name)
     {
-        super(name);
+        super(id);
         
-        this.id = id;
+        this.name = name;
     }
 
     @Override
     public void display() {
-        System.out.println(name + "\n" + id);
+        System.out.println(id + "\n" + name);
     }
 }
