@@ -24,46 +24,32 @@ public class SceneChangeUsernameController {
     @FXML
     private Label notificationChangeUsername;
     
-    private final Stage mainStage;
+    private final Stage mainStage; //stores the main stage to close it
     
     public SceneChangeUsernameController(Stage mainStage)
     {
         this.mainStage = mainStage;
     }
     
-    public void changeButtonPressed(ActionEvent e) throws IOException
+    public void changeButtonPressed(ActionEvent e) //action
     {
-         if(Log.tryChangeUsername(newUsernameField.getText(), oldPasswordField.getText()))
-         {
-             Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneChangeUsernameSuccesfullAlert.fxml"));
-             
-             Stage newStage = new Stage();
-             
-             newStage.setScene(new Scene(root));
-             newStage.setTitle("Info");
-             newStage.getIcons().add(DataStore.programLogo);
-             newStage.setResizable(false);
-             newStage.show();
-             
-             mainStage.close();
-             
-             Parent root2 = FXMLLoader.load(getClass().getResource("/Views/SceneSignIn-Primary.fxml"));
-             
-             Stage stage = (Stage)newUsernameField.getScene().getWindow();
-             
-             stage.setScene(new Scene(root2));
-         }
-         else{
-             notificationChangeUsername.setText(Log.changeUsernameNotification);
-         }
+         tryChangeUsername();
     }
     
-    public void enterKeyPressed(KeyEvent e) throws IOException
+    public void enterKeyPressed(KeyEvent e) //action
     {
         if (e.getCode() == KeyCode.ENTER)
         {
-            if(Log.tryChangeUsername(newUsernameField.getText(), oldPasswordField.getText()))
-            {
+            tryChangeUsername();
+        }
+    }
+    
+    // Tries to change username
+    public void tryChangeUsername()
+    {
+        if(Log.tryChangeUsername(newUsernameField.getText(), oldPasswordField.getText()))
+        {
+            try {
                 Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneChangeUsernameSuccesfullAlert.fxml"));
 
                 Stage newStage = new Stage();
@@ -81,10 +67,13 @@ public class SceneChangeUsernameController {
                 Stage stage = (Stage)newUsernameField.getScene().getWindow();
 
                 stage.setScene(new Scene(root2));
+            } catch (IOException ex) {
+                System.out.print("/Views/SceneChangeUsernameSuccesfullAlert.fxml or ");
+                System.out.println("/Views/SceneSignIn-Primary.fxml could not be loaded");
             }
-            else{
-                notificationChangeUsername.setText(Log.changeUsernameNotification);
-            }
+        }
+        else{
+            notificationChangeUsername.setText(Log.changeUsernameNotification);
         }
     }
     

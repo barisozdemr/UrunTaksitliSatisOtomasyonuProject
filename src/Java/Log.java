@@ -92,6 +92,7 @@ public class Log {
     
     //------------------------------------------------------------------------------------ User Information Change Methods
     
+    // Checks if username is valid and password is correct
     public static boolean tryChangeUsername(String username, String password)
     {
         Map<String, ArrayList<String>> userData = DataStore.getUserData();
@@ -124,6 +125,7 @@ public class Log {
         return false;
     }
     
+    // Checks if new password is valid and password is correct
     public static boolean tryChangePassword(String oldPassword, String newPassword, String newPasswordAgain)
     {
         Map<String, ArrayList<String>> userData = DataStore.getUserData();
