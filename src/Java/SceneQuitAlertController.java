@@ -1,7 +1,6 @@
 
 package Java;
 
-import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,13 +19,15 @@ public class SceneQuitAlertController {
         this.mainStage = mainStage;
     }
     
+    // Nothing happens and alert closes
     public void cancelButtonPressed(ActionEvent e)
     {
         Stage stage = (Stage)cancelButton.getScene().getWindow();
         stage.close();
     }
     
-    public void yesButtonPressed(ActionEvent e) throws IOException
+    // All stages closed
+    public void yesButtonPressed(ActionEvent e)
     {
         Stage stage = (Stage)yesButton.getScene().getWindow();
         stage.close();
