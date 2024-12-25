@@ -11,6 +11,7 @@ public class Log {
     
     public static String changePasswordNotification;
     
+    // Checks if username and password is correct
     public static boolean trySignIn(String username, String password)
     {
         Map<String, ArrayList<String>> userData = DataStore.getUserData();
@@ -18,13 +19,14 @@ public class Log {
         return userData.containsKey(username) && userData.get(username).get(0).equals(password);
     }
     
+    // Checks if username, password and password again are valid and username is not already in use
     public static boolean trySignUp(String username, String password, String password2)
     {
         Map<String, ArrayList<String>> userData = DataStore.getUserData();
         
-        if(validUsernamePasswordControl(username, password, password2))
+        if(validUsernamePasswordControl(username, password, password2)) //--- valid control
         {
-            if(userData.containsKey(username))
+            if(userData.containsKey(username)) //---------------------------- username not already in use control
             {
                 signUpNotification = "This username is already in use!";
             }
@@ -36,6 +38,7 @@ public class Log {
         return false;
     }
     
+    // Checks if username, password and password again are valid
     public static boolean validUsernamePasswordControl(String username, String password, String password2)
     {
         String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -87,7 +90,7 @@ public class Log {
         return true;
     }
     
-    //--------------------------------------------------------------------- User Information Change
+    //------------------------------------------------------------------------------------ User Information Change Methods
     
     public static boolean tryChangeUsername(String username, String password)
     {
@@ -95,13 +98,13 @@ public class Log {
         
         if(userData.get(DataStore.loggedUsersName).get(0).equals(password)) //- correct password control
         {
-            if(validUsernameControl(username)) //----------------------- valid username control
+            if(validUsernameControl(username)) //------------------------------ valid username control
             {
-                if(!DataStore.loggedUsersName.equals(username)) //------------ not same username control
+                if(!DataStore.loggedUsersName.equals(username)) //------------- not same username control
                 {
-                    if(!userData.containsKey(username)) //--------------- username not already in use control
+                    if(!userData.containsKey(username)) //--------------------- username not already in use control
                     {
-                        DataStore.changeUsername(username); //----------- change username
+                        DataStore.changeUsername(username); //----------------- change username
                         return true;
                     }
                     else{
@@ -125,13 +128,13 @@ public class Log {
     {
         Map<String, ArrayList<String>> userData = DataStore.getUserData();
         
-        if(userData.get(DataStore.loggedUsersName).get(0).equals(oldPassword)) //--------- correct password control
+        if(userData.get(DataStore.loggedUsersName).get(0).equals(oldPassword)) //---------- correct password control
         {
-            if(validPasswordControl(newPassword, newPasswordAgain)) //------------- valid new password control
+            if(validPasswordControl(newPassword, newPasswordAgain)) //--------------------- valid new password control
             {
-                if(!userData.get(DataStore.loggedUsersName).equals(newPassword)) //- not same password control
+                if(!userData.get(DataStore.loggedUsersName).get(0).equals(newPassword)) //- not same password control
                 {
-                    DataStore.changePassword(newPassword); //---------------------- change password
+                    DataStore.changePassword(newPassword); //------------------------------ change password
                     return true;
                 }
                 else{
@@ -142,7 +145,6 @@ public class Log {
         else{
             changePasswordNotification = "Your password is incorrect!";
         }
-        
         
         return false;
     }

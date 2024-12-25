@@ -13,11 +13,13 @@ import javafx.scene.image.Image;
 
 public class DataStore {
     
+    // Stores the id of clicked product
     public static String chosenProductsID;
     
+    // Stores the logged users name
     public static String loggedUsersName;
     
-    public static final Image programLogo = new Image("/Images/icons-logos/programLogo.jpg");
+    public static final Image programLogo = new Image("/Images/icons-logos/programLogoClear.png");
     
     private static final String USERDATA_FILE_PATH = "src/Data/userData.txt";
     private static HashMap<String, ArrayList<String>> userData = new HashMap<>();
@@ -40,6 +42,7 @@ public class DataStore {
     
     //-------------------------------------------------------------------------------------------------------- User Methods
     
+    // Loads user data from txt file
     public static void loadUserData()
     {
         try(BufferedReader read = new BufferedReader(new FileReader(USERDATA_FILE_PATH)))
@@ -80,6 +83,7 @@ public class DataStore {
         }
     }
     
+    // Saves user data to txt file
     public static void saveUserData()
     {
         try(BufferedWriter write = new BufferedWriter(new FileWriter(USERDATA_FILE_PATH)))
@@ -111,6 +115,7 @@ public class DataStore {
         }
     }
     
+    // Returns unmodifiable map
     public static Map<String, ArrayList<String>> getUserData()
     {
         Map<String, ArrayList<String>> unmodifiableUserData = new HashMap<>();
@@ -123,6 +128,7 @@ public class DataStore {
         return Collections.unmodifiableMap(unmodifiableUserData);
     }
     
+    // Adds new user to userData
     public static boolean addUser(String username, String password)
     {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -133,7 +139,7 @@ public class DataStore {
             
             theUsersData.add(password);
             
-            for(int i=0 ; i<12 ; i++)
+            for(int i=0 ; i<12 ; i++) // Sets payments to 0 as default
             {
                 theUsersData.add("0");
             }
@@ -146,6 +152,7 @@ public class DataStore {
         return false;
     }
     
+    // Change current users name
     public static void changeUsername(String newUsername)
     {
         ArrayList<String> theUsersData = userData.get(loggedUsersName);
@@ -159,6 +166,7 @@ public class DataStore {
         saveUserData();
     }
     
+    // Change current users password
     public static void changePassword(String newPassword)
     {
         userData.get(loggedUsersName).set(0, newPassword);
@@ -168,6 +176,7 @@ public class DataStore {
         saveUserData();
     }
     
+    // Change current users payments
     public static boolean updatePayments(int months, double singlePayment)
     {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -191,6 +200,7 @@ public class DataStore {
     
     //-------------------------------------------------------------------------------------------------------- Product Methods
     
+    // Loads product data from txt file
     public static void loadProductData()
     {
         try(BufferedReader read = new BufferedReader(new FileReader(PRODUCTDATA_FILE_PATH)))
@@ -221,6 +231,7 @@ public class DataStore {
         }
     }
     
+    // Saves product data to txt file
     public static void saveProductData() //Not needed for this project
     {
         try(BufferedWriter write = new BufferedWriter(new FileWriter(PRODUCTDATA_FILE_PATH)))
@@ -241,6 +252,7 @@ public class DataStore {
         }
     }
     
+    // Returns unmodifiable map
     public static Map<String, ArrayList<String>> getProductData()
     {
         Map<String, ArrayList<String>> unmodifiableProductData = new HashMap<>();
@@ -255,6 +267,7 @@ public class DataStore {
     
     //-------------------------------------------------------------------------------------------------------- Bank Methods
     
+    // Loads bank data from txt file
     public static void loadBankData()
     {
         try(BufferedReader read = new BufferedReader(new FileReader(BANKDATA_FILE_PATH)))
@@ -288,6 +301,7 @@ public class DataStore {
         }
     }
     
+    // Saves bank data to txt file
     public static void saveBankData() //Not needed for this project
     {
         try(BufferedWriter write = new BufferedWriter(new FileWriter(BANKDATA_FILE_PATH)))
@@ -312,6 +326,7 @@ public class DataStore {
         }
     }
     
+    // Returns unmodifiable map
     public static Map<String, ArrayList<String>> getBankData()
     {
         Map<String, ArrayList<String>> unmodifiableBankData = new HashMap<>();

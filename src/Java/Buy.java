@@ -1,10 +1,11 @@
 
 package Java;
 
-public class Buy {
+public class Buy{
     
     public static String buyNotification;
     
+    // Tries to run update payments method
     public static boolean tryBuy(String months, String singlePayment)
     {
         if(DataStore.updatePayments(Integer.parseInt(months), Double.parseDouble(singlePayment)))
@@ -13,7 +14,7 @@ public class Buy {
             return true;
         }
         else{
-            buyNotification = "The purchase could not be completed for an unknown error!";
+            buyNotification = "The purchase could not be completed due to unknown error!";
             return false;
         }
     }
