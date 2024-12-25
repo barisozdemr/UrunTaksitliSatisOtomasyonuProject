@@ -29,8 +29,6 @@ public class SceneMainController {
     @FXML
     private ScrollPane scrollPane;
     @FXML
-    private ImageView programLogo;
-    @FXML
     private Menu usernameMenu;
     @FXML
     private Menu sortMenu;
@@ -39,12 +37,10 @@ public class SceneMainController {
     
     private ArrayList<String> sortedID_LowToHigh = new ArrayList<>();
     
-    GridPane gridPane = new GridPane();
+    GridPane gridPane = new GridPane(); // GridPane of the products
     
     public void initialize()
     {
-        programLogo.setOnMouseEntered(event -> setCursorToHand(event));
-        
         usernameMenu.setText(DataStore.loggedUsersName);
         
         usernameMenu.setStyle("-fx-min-height: 70; -fx-min-width: 150;");
@@ -55,12 +51,12 @@ public class SceneMainController {
         
         gridPane.setPrefWidth(1164);
         
-        ColumnConstraints colC = new ColumnConstraints();
+        ColumnConstraints colC = new ColumnConstraints(); //set gridpane's column constraints
         colC.setPercentWidth(50);
         gridPane.getColumnConstraints().add(colC);
         gridPane.getColumnConstraints().add(colC);
         
-        RowConstraints row1 = new RowConstraints();
+        RowConstraints row1 = new RowConstraints(); //set gridpane's row constraints
         row1.setMinHeight(250);
         gridPane.getRowConstraints().add(row1);
         
@@ -69,18 +65,23 @@ public class SceneMainController {
         sortProductData();
     }
     
-    public void programLogoClicked(MouseEvent e) throws IOException
+    // Opens SceneMain as new scene
+    public void programLogoClicked(MouseEvent e)
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneMain.fxml"));
-        
-        String CssSceneMain = this.getClass().getResource("/Css/CssSceneMain.css").toExternalForm();
-        
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(CssSceneMain);
-        
-        Stage stage = (Stage)scrollPane.getScene().getWindow();
-        
-        stage.setScene(scene);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneMain.fxml"));
+            
+            String CssSceneMain = this.getClass().getResource("/Css/CssSceneMain.css").toExternalForm();
+            
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(CssSceneMain);
+            
+            Stage stage = (Stage)scrollPane.getScene().getWindow();
+            
+            stage.setScene(scene);
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneMain.fxml could not be loaded");
+        }
     }
     
     public void setCursorToHand(MouseEvent e)
@@ -90,120 +91,146 @@ public class SceneMainController {
     
     //-------------------------------------------------------------------------------------------------- user methods
     
-    public void yourProfileItemSelected(ActionEvent e) throws IOException //action
+    public void yourProfileItemSelected(ActionEvent e) //action
     {
         openProfilePage();
     }
     
-    public void changeUsernameItemSelected(ActionEvent e) throws IOException //action
+    public void changeUsernameItemSelected(ActionEvent e) //action
     {
         openChangeUsernameStage();
     }
     
-    public void changePasswordItemSelected(ActionEvent e) throws IOException //action
+    public void changePasswordItemSelected(ActionEvent e) //action
     {
         openChangePasswordStage();
     }
     
-    public void logoutItemSelected(ActionEvent e) throws IOException //action
+    public void logoutItemSelected(ActionEvent e) //action
     {
         openLogoutAlertStage();
     }
     
-    public void quitItemSelected(ActionEvent e) throws IOException //action
+    public void quitItemSelected(ActionEvent e) //action
     {
         openQuitAlertStage();
     }
     
-    public void openProfilePage() throws IOException
+    // Open profile page
+    public void openProfilePage()
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneProfilePage.fxml"));
-        
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/Css/CssSceneProfilePage.css");
-        
-        Stage stage = (Stage)scrollPane.getScene().getWindow();
-        
-        stage.setScene(scene);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneProfilePage.fxml"));
+            
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/Css/CssSceneProfilePage.css");
+            
+            Stage stage = (Stage)scrollPane.getScene().getWindow();
+            
+            stage.setScene(scene);
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneProfilePage.fxml could not be loaded");
+        }
     }
     
-    public void openChangeUsernameStage() throws IOException
+    // Open change username stage if user tries to change their username
+    public void openChangeUsernameStage()
     {
-        FXMLLoader usernameChangeSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneChangeUsername.fxml"));
-        
-        SceneChangeUsernameController scuc = new SceneChangeUsernameController((Stage)scrollPane.getScene().getWindow());
-        
-        usernameChangeSceneLoader.setController(scuc);
-        
-        Parent root = usernameChangeSceneLoader.load();
-        
-        Stage stage = new Stage();
-        
-        stage.setScene(new Scene(root));
-        stage.setResizable(false);
-        stage.setTitle("Taksitle! - Change Username");
-        stage.getIcons().add(DataStore.programLogo);
-        stage.show();
+        try {
+            FXMLLoader usernameChangeSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneChangeUsername.fxml"));
+            
+            // Create a controller with this stage's referance
+            SceneChangeUsernameController scuc = new SceneChangeUsernameController((Stage)scrollPane.getScene().getWindow());
+            
+            usernameChangeSceneLoader.setController(scuc);
+            
+            Parent root = usernameChangeSceneLoader.load();
+            
+            Stage stage = new Stage();
+            
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setTitle("Taksitle! - Change Username");
+            stage.getIcons().add(DataStore.programLogo);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneChangeUsername.fxml could not be loaded");
+        }
     }
     
-    public void openChangePasswordStage() throws IOException
+    // Open change password stage if user tries to change their password
+    public void openChangePasswordStage()
     {
-        FXMLLoader changePasswordSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneChangePassword.fxml"));
-        
-        SceneChangePasswordController scpc = new SceneChangePasswordController((Stage)scrollPane.getScene().getWindow());
-        
-        changePasswordSceneLoader.setController(scpc);
-        
-        Parent root = changePasswordSceneLoader.load();
-        
-        Stage stage = new Stage();
-        
-        stage.setScene(new Scene(root));
-        stage.setResizable(false);
-        stage.setTitle("Taksitle! - Change Password");
-        stage.getIcons().add(DataStore.programLogo);
-        stage.show();
+        try {
+            FXMLLoader changePasswordSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneChangePassword.fxml"));
+            
+            // Create a controller with this stage's referance
+            SceneChangePasswordController scpc = new SceneChangePasswordController((Stage)scrollPane.getScene().getWindow());
+            
+            changePasswordSceneLoader.setController(scpc);
+            
+            Parent root = changePasswordSceneLoader.load();
+            
+            Stage stage = new Stage();
+            
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setTitle("Taksitle! - Change Password");
+            stage.getIcons().add(DataStore.programLogo);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneChangePassword.fxml could not be loaded");
+        }
     }
     
-    public void openLogoutAlertStage() throws IOException
+    // Open logout alert if user tries to logout
+    public void openLogoutAlertStage()
     {
-        FXMLLoader logoutAlertSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneLogoutAlert.fxml"));
-        
-        SceneLogoutAlertController slac = new SceneLogoutAlertController((Stage)scrollPane.getScene().getWindow());
-        
-        logoutAlertSceneLoader.setController(slac);
-        
-        Parent root = logoutAlertSceneLoader.load();
-        
-        Stage stage = new Stage();
-        
-        stage.setScene(new Scene(root));
-        stage.setResizable(false);
-        stage.setTitle("Warning");
-        stage.getIcons().add(DataStore.programLogo);
-        stage.show();
+        try {
+            FXMLLoader logoutAlertSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneLogoutAlert.fxml"));
+            
+            // Create a controller with this stage's referance
+            SceneLogoutAlertController slac = new SceneLogoutAlertController((Stage)scrollPane.getScene().getWindow());
+            
+            logoutAlertSceneLoader.setController(slac);
+            
+            Parent root = logoutAlertSceneLoader.load();
+            
+            Stage stage = new Stage();
+            
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setTitle("Warning");
+            stage.getIcons().add(DataStore.programLogo);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneLogoutAlert.fxml could not be loaded");
+        }
     }
     
-    public void openQuitAlertStage() throws IOException
+    // Open quit alert if user tries to quit
+    public void openQuitAlertStage()
     {
-        FXMLLoader quitAlertSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneQuitAlert.fxml"));
-        
-        SceneQuitAlertController sqac = new SceneQuitAlertController((Stage)scrollPane.getScene().getWindow());
-        
-        quitAlertSceneLoader.setController(sqac);
-        
-        Parent root = quitAlertSceneLoader.load();
-        
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/Css/CssSceneLogOperations.css");
-        
-        Stage stage = new Stage();
-        
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.setTitle("Warning");
-        stage.getIcons().add(DataStore.programLogo);
-        stage.show();
+        try {
+            FXMLLoader quitAlertSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneQuitAlert.fxml"));
+            
+            // Create a controller with this stage's referance
+            SceneQuitAlertController sqac = new SceneQuitAlertController((Stage)scrollPane.getScene().getWindow());
+            
+            quitAlertSceneLoader.setController(sqac);
+            
+            Parent root = quitAlertSceneLoader.load();
+            
+            Stage stage = new Stage();
+            
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setTitle("Warning");
+            stage.getIcons().add(DataStore.programLogo);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneQuitAlert.fxml");
+        }
     }
     
     //-------------------------------------------------------------------------------------------------- sorting methods
@@ -241,7 +268,8 @@ public class SceneMainController {
         buildGridPane(productData, sortedID_LowToHigh, -1);
     }
     
-    public void buildGridPane(Map<String, ArrayList<String>> productData) //build gridpane random
+    // Build gridpane in random order
+    public void buildGridPane(Map<String, ArrayList<String>> productData)
     {
         RowConstraints row1 = new RowConstraints();
         row1.setMinHeight(250);
@@ -254,23 +282,16 @@ public class SceneMainController {
             HBox hbox = new HBox();
             hbox.getStyleClass().add("hbox");
             
-            String productID = entry.getKey(); //ID
-            String productName = entry.getValue().get(0); //name
-            String productImagePath = entry.getValue().get(1); //path
-            String productPrice = entry.getValue().get(2); //price
+            String productID = entry.getKey(); //----------------- ID
+            String productName = entry.getValue().get(0); //------ name
+            String productImagePath = entry.getValue().get(1); //- path
+            String productPrice = entry.getValue().get(2); //----- price
             
             Label label1 = new Label(productName);
             label1.setStyle("-fx-text-fill: white;-fx-font-size: 25");
             label1.getStyleClass().add("linkLabel");
             label1.setOnMouseEntered(event -> label1.setCursor(Cursor.HAND));
-            label1.setOnMouseClicked(event -> {
-                try {
-                    switchToSceneProduct(event, productID);
-                }
-                catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            });
+            label1.setOnMouseClicked(event -> switchToSceneProduct(event, productID));
             
             Label label2 = new Label(productPrice+" TL");
             label2.setStyle("-fx-text-fill: white;-fx-font-size: 15");
@@ -282,14 +303,7 @@ public class SceneMainController {
             imageView.setFitWidth(180);
             imageView.getStyleClass().add("image-view");
             imageView.setOnMouseEntered(event -> imageView.setCursor(Cursor.HAND));
-            imageView.setOnMouseClicked(event -> {
-                try {
-                    switchToSceneProduct(event, productID);
-                }
-                catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            });
+            imageView.setOnMouseClicked(event -> switchToSceneProduct(event, productID));
             
             hbox.getChildren().add(imageView);
             
@@ -305,7 +319,7 @@ public class SceneMainController {
             gridPane.getStyleClass().add("gridpane");
             
             col++;
-            if(col == 2) {
+            if(col == 2) { //add a row in every 2 products
                 row++;
                 col = 0;
                 gridPane.getRowConstraints().add(row1);
@@ -315,7 +329,8 @@ public class SceneMainController {
         scrollPane.setContent(gridPane);
     }
     
-    public void buildGridPane(Map<String, ArrayList<String>> productData, ArrayList<String> sortedID_LowToHigh) //build gridpane low to high
+    // Build gridpane as low to high price
+    public void buildGridPane(Map<String, ArrayList<String>> productData, ArrayList<String> sortedID_LowToHigh)
     {
         int row = 0;
         int col = 0;
@@ -325,23 +340,16 @@ public class SceneMainController {
             HBox hbox = new HBox();
             hbox.getStyleClass().add("hbox");
             
-            String productID = ID; //ID
-            String productName = productData.get(ID).get(0); //name
-            String productImagePath = productData.get(ID).get(1); //path
-            String productPrice = productData.get(ID).get(2); //price
+            String productID = ID; //-------------------------------- ID
+            String productName = productData.get(ID).get(0); //------ name
+            String productImagePath = productData.get(ID).get(1); //- path
+            String productPrice = productData.get(ID).get(2); //----- price
             
             Label label1 = new Label(productName);
             label1.setStyle("-fx-text-fill: white;-fx-font-size: 25");
             label1.getStyleClass().add("linkLabel");
             label1.setOnMouseEntered(event -> label1.setCursor(Cursor.HAND));
-            label1.setOnMouseClicked(event -> {
-                try {
-                    switchToSceneProduct(event, productID);
-                }
-                catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            });
+            label1.setOnMouseClicked(event -> switchToSceneProduct(event, productID));
             
             Label label2 = new Label(productPrice+" TL");
             label2.setStyle("-fx-text-fill: white;-fx-font-size: 15");
@@ -352,14 +360,7 @@ public class SceneMainController {
             imageView.setFitHeight(180);
             imageView.setFitWidth(180);
             imageView.setOnMouseEntered(event -> imageView.setCursor(Cursor.HAND));
-            imageView.setOnMouseClicked(event -> {
-                try {
-                    switchToSceneProduct(event, productID);
-                }
-                catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            });
+            imageView.setOnMouseClicked(event -> switchToSceneProduct(event, productID));
             
             hbox.getChildren().add(imageView);
             
@@ -375,7 +376,7 @@ public class SceneMainController {
             gridPane.getStyleClass().add("gridpane");
             
             col++;
-            if(col == 2) {
+            if(col == 2) { //add a row in every 2 products
                 row++;
                 col = 0;
             }
@@ -384,33 +385,27 @@ public class SceneMainController {
         scrollPane.setContent(gridPane);
     }
     
-    public void buildGridPane(Map<String, ArrayList<String>> productData, ArrayList<String> sortedID_LowToHigh, int a) //build gridpane high to low
+    // Build gridpane as high to low price
+    public void buildGridPane(Map<String, ArrayList<String>> productData, ArrayList<String> sortedID_LowToHigh, int a)
     {
         int row = 0;
         int col = 0;
         
-        for(int i=sortedID_LowToHigh.size()-1 ; 0<=i ; i--)
+        for(int i=sortedID_LowToHigh.size()-1 ; 0<=i ; i--) // i goes in opposite order because the list is sorted low to high
         {
             HBox hbox = new HBox();
             hbox.getStyleClass().add("hbox");
             
-            String productID = sortedID_LowToHigh.get(i); //ID
-            String productName = productData.get(sortedID_LowToHigh.get(i)).get(0); //name
-            String productImagePath = productData.get(sortedID_LowToHigh.get(i)).get(1); //path
-            String productPrice = productData.get(sortedID_LowToHigh.get(i)).get(2); //price
+            String productID = sortedID_LowToHigh.get(i); //-------------------------------- ID
+            String productName = productData.get(sortedID_LowToHigh.get(i)).get(0); //------ name
+            String productImagePath = productData.get(sortedID_LowToHigh.get(i)).get(1); //- path
+            String productPrice = productData.get(sortedID_LowToHigh.get(i)).get(2); //----- price
             
             Label label1 = new Label(productName);
             label1.setStyle("-fx-text-fill: white;-fx-font-size: 25");
             label1.getStyleClass().add("linkLabel");
             label1.setOnMouseEntered(event -> label1.setCursor(Cursor.HAND));
-            label1.setOnMouseClicked(event -> {
-                try {
-                    switchToSceneProduct(event, productID);
-                }
-                catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            });
+            label1.setOnMouseClicked(event -> switchToSceneProduct(event, productID));
             
             Label label2 = new Label(productPrice+" TL");
             label2.setStyle("-fx-text-fill: white;-fx-font-size: 15");
@@ -421,14 +416,7 @@ public class SceneMainController {
             imageView.setFitHeight(180);
             imageView.setFitWidth(180);
             imageView.setOnMouseEntered(event -> imageView.setCursor(Cursor.HAND));
-            imageView.setOnMouseClicked(event -> {
-                try {
-                    switchToSceneProduct(event, productID);
-                }
-                catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            });
+            imageView.setOnMouseClicked(event -> switchToSceneProduct(event, productID));
             
             hbox.getChildren().add(imageView);
             
@@ -444,7 +432,7 @@ public class SceneMainController {
             gridPane.getStyleClass().add("gridpane");
             
             col++;
-            if(col == 2) {
+            if(col == 2) { //add a row in every 2 products
                 row++;
                 col = 0;
             }
@@ -453,6 +441,7 @@ public class SceneMainController {
         scrollPane.setContent(gridPane);
     }
     
+    // Sorts products ID's based on their prices as low to high
     public void sortProductData()
     {
         if(sortedID_LowToHigh == null)
@@ -486,25 +475,30 @@ public class SceneMainController {
         }
     }
     
-    //-------------------------------------------------------------------------------------------------- product methods
+    //-------------------------------------------------------------------------------------------------- switch scene product
     
-    public void switchToSceneProduct(MouseEvent e, String productID) throws IOException
+    public void switchToSceneProduct(MouseEvent e, String productID)
     {
-        DataStore.chosenProductsID = productID;
-        
-        FXMLLoader sceneProductLoader = new FXMLLoader(getClass().getResource("/Views/SceneProduct.fxml"));
-        
-        SceneProductController spc = new SceneProductController(scrollPane.getScene());
-        
-        sceneProductLoader.setController(spc);
-        
-        Parent root = sceneProductLoader.load();
-        
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/Css/CssSceneProduct.css");
-        
-        Stage stage = (Stage)scrollPane.getScene().getWindow();
-        
-        stage.setScene(scene);
+        try {
+            DataStore.chosenProductsID = productID; // Set chosen products ID before opening its scene
+            
+            FXMLLoader sceneProductLoader = new FXMLLoader(getClass().getResource("/Views/SceneProduct.fxml"));
+            
+            // Create a controller with this scene's referance
+            SceneProductController spc = new SceneProductController(scrollPane.getScene());
+            
+            sceneProductLoader.setController(spc);
+            
+            Parent root = sceneProductLoader.load();
+            
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/Css/CssSceneProduct.css");
+            
+            Stage stage = (Stage)scrollPane.getScene().getWindow();
+            
+            stage.setScene(scene);
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneProduct.fxml could not be loaded");
+        }
     }
 }

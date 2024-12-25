@@ -27,11 +27,11 @@ public class SceneSignUpController {
     @FXML
     private PasswordField passwordSignUpField2;
     
-    public void signUpButtonPressed(ActionEvent e) throws IOException
+    public void signUpButtonPressed(ActionEvent e) //action
     {
         if(Log.trySignUp(usernameSignUpField.getText(), passwordSignUpField.getText(), passwordSignUpField2.getText()))
         {
-            openSignUpSuccesfullStage(e);
+            openSignUpSuccesfullAlert(e);
         }
         else{
             if(Log.signUpNotification == null)
@@ -44,7 +44,7 @@ public class SceneSignUpController {
         }
     }
     
-    public void backToSignInButtonPressed(ActionEvent e) throws IOException
+    public void backToSignInButtonPressed(ActionEvent e) //action
     {
         switchToSceneSignIn(e);
     }
@@ -57,33 +57,42 @@ public class SceneSignUpController {
         }
     }
     
-    public void switchToSceneSignIn(Event e) throws IOException //switches to signIn scene
+    public void switchToSceneSignIn(Event e) //switches to signIn scene
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneSignIn-Primary.fxml")); //get fxml contens
-        
-        String CssSceneLogOperations = this.getClass().getResource("/Css/CssSceneLogOperations.css").toExternalForm(); //get css contents
-        
-        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow(); //get the stage of the event
-        
-        Scene scene = new Scene(root); //create new scene
-        scene.getStylesheets().add(CssSceneLogOperations); //add css contents to our scene
-        
-        stage.setScene(scene); //set event's stage's scene
-        stage.setTitle("Taksitle! - Sign In");
-        stage.show();
+        try //switches to signIn scene
+        {
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneSignIn-Primary.fxml")); //get fxml contens
+            
+            String CssSceneLogOperations = this.getClass().getResource("/Css/CssSceneLogOperations.css").toExternalForm(); //get css contents
+            
+            Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow(); //get the stage of the event
+            
+            Scene scene = new Scene(root); //create new scene
+            scene.getStylesheets().add(CssSceneLogOperations); //add css contents to our scene
+            
+            stage.setScene(scene); //set event's stage's scene
+            stage.setTitle("Taksitle! - Sign In");
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneSignIn-Primary.fxml could not be loaded");
+        }
     }
     
-    public void openSignUpSuccesfullStage(Event e) throws IOException
+    public void openSignUpSuccesfullAlert(Event e)
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneSignUpSuccesfullAlert.fxml")); //get fxml contents
-
-        Stage stage = new Stage(); //creating new stage
-        stage.setScene(new Scene(root)); //set stage scene
-        stage.setTitle("Bilgi"); //set stage title
-        stage.getIcons().add(DataStore.programLogo); //set program logo
-        stage.setResizable(false);
-        stage.show();
-
-        switchToSceneSignIn(e);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneSignUpSuccesfullAlert.fxml")); //get fxml contents
+            
+            Stage stage = new Stage(); //creating new stage
+            stage.setScene(new Scene(root)); //set stage scene
+            stage.setTitle("Bilgi"); //set stage title
+            stage.getIcons().add(DataStore.programLogo); //set program logo
+            stage.setResizable(false);
+            stage.show();
+            
+            switchToSceneSignIn(e);
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneSignUpSuccesfullAlert.fxml could not be loaded");
+        }
     }
 }

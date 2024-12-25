@@ -14,7 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -27,8 +26,6 @@ import javafx.stage.Stage;
 public class SceneProfilePageController {
     
     @FXML
-    private ImageView programLogo;
-    @FXML
     private Menu usernameMenu;
     @FXML
     private Label usernameLabel;
@@ -37,12 +34,8 @@ public class SceneProfilePageController {
     
     private final String loggedUsersName = DataStore.loggedUsersName;
     
-    private Map<String, ArrayList<String>> userData = DataStore.getUserData();
-    
     public void initialize()
     {
-        programLogo.setOnMouseEntered(event -> setCursorToHand(event));
-        
         usernameMenu.setText(loggedUsersName);
         
         usernameMenu.setStyle("-fx-min-height: 70; -fx-min-width: 150;");
@@ -52,23 +45,27 @@ public class SceneProfilePageController {
         buildPayments();
     }
     
-    public void programLogoClicked(MouseEvent e) throws IOException
+    public void programLogoClicked(MouseEvent e)
     {
         openSceneMain();
     }
     
-    public void openSceneMain() throws IOException
+    public void openSceneMain()
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneMain.fxml"));
-        
-        String CssSceneMain = this.getClass().getResource("/Css/CssSceneMain.css").toExternalForm();
-        
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(CssSceneMain);
-        
-        Stage stage = (Stage)paymentsAnchorPane.getScene().getWindow();
-        
-        stage.setScene(scene);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneMain.fxml"));
+            
+            String CssSceneMain = this.getClass().getResource("/Css/CssSceneMain.css").toExternalForm();
+            
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(CssSceneMain);
+            
+            Stage stage = (Stage)paymentsAnchorPane.getScene().getWindow();
+            
+            stage.setScene(scene);
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneMain.fxml could not be loaded");
+        }
     }
     
     public void setCursorToHand(MouseEvent e)
@@ -76,6 +73,7 @@ public class SceneProfilePageController {
         ((Node)e.getSource()).setCursor(Cursor.HAND);
     }
     
+    // Sets users payments of each month respectively
     public void buildPayments()
     {
         Map<String, ArrayList<String>> userData = DataStore.getUserData();
@@ -109,7 +107,7 @@ public class SceneProfilePageController {
         row1.setMinHeight(100);
         gridPane.getRowConstraints().add(row1);
         
-        for(int i=0 ; i<12 ; i++)
+        for(int i=0 ; i<12 ; i++) // one cycle for each month
         {
             VBox vbox = new VBox();
             vbox.getStyleClass().add("vbox");
@@ -170,99 +168,145 @@ public class SceneProfilePageController {
     
     //-------------------------------------------------------------------------------------------------- user methods
     
-    public void changeUsernameItemSelected(ActionEvent e) throws IOException //action
+    public void yourProfileItemSelected(ActionEvent e) //action
+    {
+        openProfilePage();
+    }
+    
+    public void changeUsernameItemSelected(ActionEvent e) //action
     {
         openChangeUsernameStage();
     }
     
-    public void changePasswordItemSelected(ActionEvent e) throws IOException //action
+    public void changePasswordItemSelected(ActionEvent e) //action
     {
         openChangePasswordStage();
     }
     
-    public void logoutItemSelected(ActionEvent e) throws IOException //action
+    public void logoutItemSelected(ActionEvent e) //action
     {
         openLogoutAlertStage();
     }
     
-    public void quitItemSelected(ActionEvent e) throws IOException //action
+    public void quitItemSelected(ActionEvent e) //action
     {
         openQuitAlertStage();
     }
     
-    public void openChangeUsernameStage() throws IOException
+    // Open profile page
+    public void openProfilePage()
     {
-        FXMLLoader usernameChangeSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneChangeUsername.fxml"));
-        
-        SceneChangeUsernameController scuc = new SceneChangeUsernameController((Stage)paymentsAnchorPane.getScene().getWindow());
-        
-        usernameChangeSceneLoader.setController(scuc);
-        
-        Parent root = usernameChangeSceneLoader.load();
-        
-        Stage stage = new Stage();
-        
-        stage.setScene(new Scene(root));
-        stage.setResizable(false);
-        stage.setTitle("Taksitle! - Change Username");
-        stage.getIcons().add(DataStore.programLogo);
-        stage.show();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneProfilePage.fxml"));
+            
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/Css/CssSceneProfilePage.css");
+            
+            Stage stage = (Stage)paymentsAnchorPane.getScene().getWindow();
+            
+            stage.setScene(scene);
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneProfilePage.fxml could not be loaded");
+        }
     }
     
-    public void openChangePasswordStage() throws IOException
+    // Open change username stage if user tries to change their username
+    public void openChangeUsernameStage()
     {
-        FXMLLoader changePasswordSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneChangePassword.fxml"));
-        
-        SceneChangePasswordController scpc = new SceneChangePasswordController((Stage)paymentsAnchorPane.getScene().getWindow());
-        
-        changePasswordSceneLoader.setController(scpc);
-        
-        Parent root = changePasswordSceneLoader.load();
-        
-        Stage stage = new Stage();
-        
-        stage.setScene(new Scene(root));
-        stage.setResizable(false);
-        stage.setTitle("Taksitle! - Change Password");
-        stage.getIcons().add(DataStore.programLogo);
-        stage.show();
+        try {
+            FXMLLoader usernameChangeSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneChangeUsername.fxml"));
+            
+            // Create a controller with this stage's referance
+            SceneChangeUsernameController scuc = new SceneChangeUsernameController((Stage)paymentsAnchorPane.getScene().getWindow());
+            
+            usernameChangeSceneLoader.setController(scuc);
+            
+            Parent root = usernameChangeSceneLoader.load();
+            
+            Stage stage = new Stage();
+            
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setTitle("Taksitle! - Change Username");
+            stage.getIcons().add(DataStore.programLogo);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneChangeUsername.fxml could not be loaded");
+        }
     }
     
-    public void openLogoutAlertStage() throws IOException
+    // Open change password stage if user tries to change their password
+    public void openChangePasswordStage()
     {
-        FXMLLoader logoutAlertSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneLogoutAlert.fxml"));
-        
-        SceneLogoutAlertController slac = new SceneLogoutAlertController((Stage)paymentsAnchorPane.getScene().getWindow());
-        
-        logoutAlertSceneLoader.setController(slac);
-        
-        Parent root = logoutAlertSceneLoader.load();
-        
-        Stage stage = new Stage();
-        
-        stage.setScene(new Scene(root));
-        stage.setResizable(false);
-        stage.setTitle("Warning");
-        stage.getIcons().add(DataStore.programLogo);
-        stage.show();
+        try {
+            FXMLLoader changePasswordSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneChangePassword.fxml"));
+            
+            // Create a controller with this stage's referance
+            SceneChangePasswordController scpc = new SceneChangePasswordController((Stage)paymentsAnchorPane.getScene().getWindow());
+            
+            changePasswordSceneLoader.setController(scpc);
+            
+            Parent root = changePasswordSceneLoader.load();
+            
+            Stage stage = new Stage();
+            
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setTitle("Taksitle! - Change Password");
+            stage.getIcons().add(DataStore.programLogo);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneChangePassword.fxml could not be loaded");
+        }
     }
     
-    public void openQuitAlertStage() throws IOException
+    // Open logout alert if user tries to logout
+    public void openLogoutAlertStage()
     {
-        FXMLLoader quitAlertSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneQuitAlert.fxml"));
-        
-        SceneQuitAlertController sqac = new SceneQuitAlertController((Stage)paymentsAnchorPane.getScene().getWindow());
-        
-        quitAlertSceneLoader.setController(sqac);
-        
-        Parent root = quitAlertSceneLoader.load();
-        
-        Stage stage = new Stage();
-        
-        stage.setScene(new Scene(root));
-        stage.setResizable(false);
-        stage.setTitle("Warning");
-        stage.getIcons().add(DataStore.programLogo);
-        stage.show();
+        try {
+            FXMLLoader logoutAlertSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneLogoutAlert.fxml"));
+            
+            // Create a controller with this stage's referance
+            SceneLogoutAlertController slac = new SceneLogoutAlertController((Stage)paymentsAnchorPane.getScene().getWindow());
+            
+            logoutAlertSceneLoader.setController(slac);
+            
+            Parent root = logoutAlertSceneLoader.load();
+            
+            Stage stage = new Stage();
+            
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setTitle("Warning");
+            stage.getIcons().add(DataStore.programLogo);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneLogoutAlert.fxml could not be loaded");
+        }
+    }
+    
+    // Open quit alert if user tries to quit
+    public void openQuitAlertStage()
+    {
+        try {
+            FXMLLoader quitAlertSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneQuitAlert.fxml"));
+            
+            // Create a controller with this stage's referance
+            SceneQuitAlertController sqac = new SceneQuitAlertController((Stage)paymentsAnchorPane.getScene().getWindow());
+            
+            quitAlertSceneLoader.setController(sqac);
+            
+            Parent root = quitAlertSceneLoader.load();
+            
+            Stage stage = new Stage();
+            
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setTitle("Warning");
+            stage.getIcons().add(DataStore.programLogo);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneQuitAlert.fxml");
+        }
     }
 }

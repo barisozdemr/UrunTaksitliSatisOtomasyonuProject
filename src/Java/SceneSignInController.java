@@ -27,9 +27,9 @@ public class SceneSignInController {
     @FXML
     private PasswordField passwordSignInField;
     
-    public void signInButtonPressed(ActionEvent e) throws IOException //action
+    public void signInButtonPressed(ActionEvent e) //action
     {
-        if(Log.trySignIn(usernameSignInField.getText(), passwordSignInField.getText()))
+        if(Log.trySignIn(usernameSignInField.getText(), passwordSignInField.getText())) //checks if the username and password is correct
         {
             DataStore.loggedUsersName = usernameSignInField.getText();
             openSceneMain(e);
@@ -39,16 +39,16 @@ public class SceneSignInController {
         }
     }
     
-    public void backToSignUpButtonPressed(ActionEvent e) throws IOException //action
+    public void backToSignUpButtonPressed(ActionEvent e) //action
     {
         switchToSceneSignUp(e);
     }
     
-    public void enterKeyPressed(KeyEvent e) throws IOException
+    public void enterKeyPressed(KeyEvent e) //action
     {
         if (e.getCode() == KeyCode.ENTER)
         {
-            if(Log.trySignIn(usernameSignInField.getText(), passwordSignInField.getText()))
+            if(Log.trySignIn(usernameSignInField.getText(), passwordSignInField.getText())) //checks if the username and password is correct
             {
                 DataStore.loggedUsersName = usernameSignInField.getText();
                 openSceneMain(e);
@@ -67,39 +67,48 @@ public class SceneSignInController {
         }
     }
     
-    public void openSceneMain(Event e) throws IOException
+    public void openSceneMain(Event e)
     {
-        Stage oldStage = (Stage)((Node)e.getSource()).getScene().getWindow(); //get sign in stage
-        oldStage.close(); //close sign in stage
-        
-        String CssSceneMain = this.getClass().getResource("/Css/CssSceneMain.css").toExternalForm(); // get css contents
-        
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneMain.fxml")); //get fxml contents (Main Scene)
-        
-        Scene scene = new Scene(root); //create new stage with main scene roots
-        scene.getStylesheets().add(CssSceneMain); //add css contents to the new scene
-        
-        Stage stage = new Stage(); //create new stage
-        stage.setScene(scene); //set stage's scene
-        stage.setTitle("Taksitle!"); //set stage title
-        stage.getIcons().add(DataStore.programLogo); //set program logo
-        stage.setResizable(false);
-        stage.show();
+        try {
+            Stage oldStage = (Stage)((Node)e.getSource()).getScene().getWindow(); //get sign in stage
+            oldStage.close(); //close sign in stage
+            
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneMain.fxml")); //get fxml contents (Main Scene)
+            
+            String CssSceneMain = this.getClass().getResource("/Css/CssSceneMain.css").toExternalForm(); // get css contents
+            
+            Scene scene = new Scene(root); //create new stage with main scene roots
+            scene.getStylesheets().add(CssSceneMain); //add css contents to the new scene
+            
+            Stage stage = new Stage(); //create new stage
+            stage.setScene(scene); //set stage's scene
+            stage.setTitle("Taksitle!"); //set stage title
+            stage.getIcons().add(DataStore.programLogo); //set program logo
+            stage.setResizable(false); //set resizeble false
+            stage.show(); //show scene
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneMain.fxml could not be loaded");
+        }
     }
     
-    public void switchToSceneSignUp(Event e) throws IOException //switches to signUp scene
+    public void switchToSceneSignUp(Event e) //switches to signUp scene
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneSignUp.fxml")); //get fxml contens
-        
-        String CssSceneLogOperations = this.getClass().getResource("/Css/CssSceneLogOperations.css").toExternalForm(); //get css contents
-        
-        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow(); //get the stage of the event
-        
-        Scene scene = new Scene(root); //create new scene
-        scene.getStylesheets().add(CssSceneLogOperations); //add css contents to our scene
-        
-        stage.setScene(scene); //set event's stage's scene
-        stage.setTitle("Taksitle! - Sign Up");
-        stage.show();
+        try //switches to signUp scene
+        {
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneSignUp.fxml")); //get fxml contens
+            
+            String CssSceneLogOperations = this.getClass().getResource("/Css/CssSceneLogOperations.css").toExternalForm(); //get css contents
+            
+            Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow(); //get the stage of the event
+            
+            Scene scene = new Scene(root); //create new scene
+            scene.getStylesheets().add(CssSceneLogOperations); //add css contents to our scene
+            
+            stage.setScene(scene); //set event's stage's scene
+            stage.setTitle("Taksitle! - Sign Up");
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneSignUp.fxml could not be loaded");
+        }
     }
 }

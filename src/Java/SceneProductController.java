@@ -3,10 +3,7 @@ package Java;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,12 +29,10 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class SceneProductController {
+public class SceneProductController { // Scene of the chosen Product
     
     @FXML
     private BorderPane borderPane;
-    @FXML
-    private ImageView programLogo;
     @FXML
     private Menu usernameMenu;
     @FXML
@@ -51,21 +46,19 @@ public class SceneProductController {
     @FXML
     private ScrollPane paymentsScrollPane;
     
-    private final Scene mainScene;
+    private final Scene mainScene; // The old scene
     
     private final ToggleGroup paymentToggle = new ToggleGroup();
     
     private final String productID = DataStore.chosenProductsID;
     
-    public SceneProductController(Scene mainScene)
+    public SceneProductController(Scene mainScene) // Constructor to store the old scene as where you left
     {
         this.mainScene = mainScene;
     }
     
     public void initialize()
     {
-        programLogo.setOnMouseEntered(event -> setCursorToHand(event));
-        
         usernameMenu.setText(DataStore.loggedUsersName);
         
         usernameMenu.setStyle("-fx-min-height: 70; -fx-min-width: 150;");
@@ -75,6 +68,7 @@ public class SceneProductController {
         buildPayments();
     }
     
+    // Set chosen products datas
     public void setProductInfo()
     {
         Map<String, ArrayList<String>> productData = DataStore.getProductData();
@@ -90,7 +84,8 @@ public class SceneProductController {
         productPriceLabel.setText(productPrice+" TL");
     }
     
-    public void backToSceneMain(MouseEvent e) throws IOException
+    // Switches back to SceneMain as where you left
+    public void backToSceneMain(MouseEvent e)
     {
         Stage stage = (Stage)borderPane.getScene().getWindow();
         
@@ -102,18 +97,23 @@ public class SceneProductController {
         openSceneMain();
     }
     
-    public void openSceneMain() throws IOException
+    // Opens SceneMain as new scene
+    public void openSceneMain()
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneMain.fxml"));
-        
-        String CssSceneMain = this.getClass().getResource("/Css/CssSceneMain.css").toExternalForm();
-        
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(CssSceneMain);
-        
-        Stage stage = (Stage)borderPane.getScene().getWindow();
-        
-        stage.setScene(scene);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneMain.fxml"));
+            
+            String CssSceneMain = this.getClass().getResource("/Css/CssSceneMain.css").toExternalForm();
+            
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(CssSceneMain);
+            
+            Stage stage = (Stage)borderPane.getScene().getWindow();
+            
+            stage.setScene(scene);
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneMain.fxml could not be loaded");
+        }
     }
     
     public void setCursorToHand(MouseEvent e)
@@ -121,16 +121,17 @@ public class SceneProductController {
         ((Node)e.getSource()).setCursor(Cursor.HAND);
     }
     
-    public void setBackButtonBackgroundBrighter()
+    public void setBackButtonBackgroundBrighter() //back button css
     {
         backButtonBackground.setStyle("-fx-background-color: #505050");
     }
     
-    public void setBackButtonBackgroundDarker()
+    public void setBackButtonBackgroundDarker() //back button css
     {
         backButtonBackground.setStyle("-fx-background-color: #353535");
     }
     
+    // Build all payment methods of the chosen product
     public void buildPayments()
     {
         Map<String, ArrayList<String>> bankData = DataStore.getBankData();
@@ -335,14 +336,7 @@ public class SceneProductController {
         Button buyButton = new Button("Buy");
         buyButton.setId("paymentsBuyButton");
         buyButton.setOnMouseEntered(event -> setCursorToHand(event));
-        buyButton.setOnMouseClicked(event -> {
-            try {
-                buyButtonPressed(event);
-            }
-            catch (IOException ex) {
-                Logger.getLogger(SceneProductController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
+        buyButton.setOnMouseClicked(event -> buyButtonPressed(event));
         AnchorPane.setTopAnchor(buyButton, Double.parseDouble(String.valueOf(i*100))+85);
         AnchorPane.setLeftAnchor(buyButton, 500.0);
         paymentsAnchorPane.getChildren().add(buyButton);
@@ -350,7 +344,7 @@ public class SceneProductController {
         paymentsScrollPane.setContent(paymentsAnchorPane);
     }
     
-    public void buyButtonPressed(MouseEvent e) throws IOException
+    public void buyButtonPressed(MouseEvent e)
     {
         if(paymentToggle.getSelectedToggle() != null)
         {
@@ -371,131 +365,164 @@ public class SceneProductController {
         }
     }
     
-    public void openPurchaseAlert() throws IOException
+    public void openPurchaseAlert()
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/ScenePurchaseAlert.fxml"));
-        
-        Stage stage = new Stage();
-        
-        stage.setScene(new Scene(root));
-        stage.setTitle("Taksitle! - Info");
-        stage.getIcons().add(DataStore.programLogo);
-        stage.setResizable(false);
-        stage.show();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/ScenePurchaseAlert.fxml"));
+            
+            Stage stage = new Stage();
+            
+            stage.setScene(new Scene(root));
+            stage.setTitle("Taksitle! - Info");
+            stage.getIcons().add(DataStore.programLogo);
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("/Views/ScenePurchaseAlert.fxml could not be loaded");
+        }
     }
     
     //-------------------------------------------------------------------------------------------------- user methods
     
-    public void yourProfileItemSelected(ActionEvent e) throws IOException //action
+    public void yourProfileItemSelected(ActionEvent e) //action
     {
         openProfilePage();
     }
     
-    public void changeUsernameItemSelected(ActionEvent e) throws IOException //action
+    public void changeUsernameItemSelected(ActionEvent e) //action
     {
         openChangeUsernameStage();
     }
     
-    public void changePasswordItemSelected(ActionEvent e) throws IOException //action
+    public void changePasswordItemSelected(ActionEvent e) //action
     {
         openChangePasswordStage();
     }
     
-    public void logoutItemSelected(ActionEvent e) throws IOException //action
+    public void logoutItemSelected(ActionEvent e) //action
     {
         openLogoutAlertStage();
     }
     
-    public void quitItemSelected(ActionEvent e) throws IOException //action
+    public void quitItemSelected(ActionEvent e) //action
     {
         openQuitAlertStage();
     }
     
-    public void openProfilePage() throws IOException
+    // Open profile page
+    public void openProfilePage()
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneProfilePage.fxml"));
-        
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/Css/CssSceneProfilePage.css");
-        
-        Stage stage = (Stage)borderPane.getScene().getWindow();
-        
-        stage.setScene(scene);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/SceneProfilePage.fxml"));
+            
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/Css/CssSceneProfilePage.css");
+            
+            Stage stage = (Stage)borderPane.getScene().getWindow();
+            
+            stage.setScene(scene);
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneProfilePage.fxml could not be loaded");
+        }
     }
     
-    public void openChangeUsernameStage() throws IOException
+    // Open change username stage if user tries to change their username
+    public void openChangeUsernameStage()
     {
-        FXMLLoader usernameChangeSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneChangeUsername.fxml"));
-        
-        SceneChangeUsernameController scuc = new SceneChangeUsernameController((Stage)borderPane.getScene().getWindow());
-        
-        usernameChangeSceneLoader.setController(scuc);
-        
-        Parent root = usernameChangeSceneLoader.load();
-        
-        Stage stage = new Stage();
-        
-        stage.setScene(new Scene(root));
-        stage.setResizable(false);
-        stage.setTitle("Taksitle! - Change Username");
-        stage.getIcons().add(DataStore.programLogo);
-        stage.show();
+        try {
+            FXMLLoader usernameChangeSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneChangeUsername.fxml"));
+            
+            // Create a controller with this stage's referance
+            SceneChangeUsernameController scuc = new SceneChangeUsernameController((Stage)borderPane.getScene().getWindow());
+            
+            usernameChangeSceneLoader.setController(scuc);
+            
+            Parent root = usernameChangeSceneLoader.load();
+            
+            Stage stage = new Stage();
+            
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setTitle("Taksitle! - Change Username");
+            stage.getIcons().add(DataStore.programLogo);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneChangeUsername.fxml could not be loaded");
+        }
     }
     
-    public void openChangePasswordStage() throws IOException
+    // Open change password stage if user tries to change their password
+    public void openChangePasswordStage()
     {
-        FXMLLoader changePasswordSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneChangePassword.fxml"));
-        
-        SceneChangePasswordController scpc = new SceneChangePasswordController((Stage)borderPane.getScene().getWindow());
-        
-        changePasswordSceneLoader.setController(scpc);
-        
-        Parent root = changePasswordSceneLoader.load();
-        
-        Stage stage = new Stage();
-        
-        stage.setScene(new Scene(root));
-        stage.setResizable(false);
-        stage.setTitle("Taksitle! - Change Password");
-        stage.getIcons().add(DataStore.programLogo);
-        stage.show();
+        try {
+            FXMLLoader changePasswordSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneChangePassword.fxml"));
+            
+            // Create a controller with this stage's referance
+            SceneChangePasswordController scpc = new SceneChangePasswordController((Stage)borderPane.getScene().getWindow());
+            
+            changePasswordSceneLoader.setController(scpc);
+            
+            Parent root = changePasswordSceneLoader.load();
+            
+            Stage stage = new Stage();
+            
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setTitle("Taksitle! - Change Password");
+            stage.getIcons().add(DataStore.programLogo);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneChangePassword.fxml could not be loaded");
+        }
     }
     
-    public void openLogoutAlertStage() throws IOException
+    // Open logout alert if user tries to logout
+    public void openLogoutAlertStage()
     {
-        FXMLLoader logoutAlertSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneLogoutAlert.fxml"));
-        
-        SceneLogoutAlertController slac = new SceneLogoutAlertController((Stage)borderPane.getScene().getWindow());
-        
-        logoutAlertSceneLoader.setController(slac);
-        
-        Parent root = logoutAlertSceneLoader.load();
-        
-        Stage stage = new Stage();
-        
-        stage.setScene(new Scene(root));
-        stage.setResizable(false);
-        stage.setTitle("Warning");
-        stage.getIcons().add(DataStore.programLogo);
-        stage.show();
+        try {
+            FXMLLoader logoutAlertSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneLogoutAlert.fxml"));
+            
+            // Create a controller with this stage's referance
+            SceneLogoutAlertController slac = new SceneLogoutAlertController((Stage)borderPane.getScene().getWindow());
+            
+            logoutAlertSceneLoader.setController(slac);
+            
+            Parent root = logoutAlertSceneLoader.load();
+            
+            Stage stage = new Stage();
+            
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setTitle("Warning");
+            stage.getIcons().add(DataStore.programLogo);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneLogoutAlert.fxml could not be loaded");
+        }
     }
     
-    public void openQuitAlertStage() throws IOException
+    // Open quit alert if user tries to quit
+    public void openQuitAlertStage()
     {
-        FXMLLoader quitAlertSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneQuitAlert.fxml"));
-        
-        SceneQuitAlertController sqac = new SceneQuitAlertController((Stage)borderPane.getScene().getWindow());
-        
-        quitAlertSceneLoader.setController(sqac);
-        
-        Parent root = quitAlertSceneLoader.load();
-        
-        Stage stage = new Stage();
-        
-        stage.setScene(new Scene(root));
-        stage.setResizable(false);
-        stage.setTitle("Warning");
-        stage.getIcons().add(DataStore.programLogo);
-        stage.show();
+        try {
+            FXMLLoader quitAlertSceneLoader = new FXMLLoader(getClass().getResource("/Views/SceneQuitAlert.fxml"));
+            
+            // Create a controller with this stage's referance
+            SceneQuitAlertController sqac = new SceneQuitAlertController((Stage)borderPane.getScene().getWindow());
+            
+            quitAlertSceneLoader.setController(sqac);
+            
+            Parent root = quitAlertSceneLoader.load();
+            
+            Stage stage = new Stage();
+            
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setTitle("Warning");
+            stage.getIcons().add(DataStore.programLogo);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("/Views/SceneQuitAlert.fxml");
+        }
     }
 }
