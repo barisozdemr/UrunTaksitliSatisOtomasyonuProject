@@ -100,6 +100,7 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
+                        <Line endX="1175.0" endY="-3.0" layoutX="24.0" layoutY="278.0" startX="-24.0" startY="-3.0" stroke="#505050" />
                      </children>
                   </AnchorPane>
                   <ScrollPane fx:id="paymentsScrollPane" prefHeight="354.0" prefWidth="1200.0">
