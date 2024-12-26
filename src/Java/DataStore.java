@@ -3,8 +3,11 @@ package Java;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -78,6 +81,17 @@ public class DataStore {
                 }
             }
         }
+        catch(FileNotFoundException e) //create file if it doesn't exist
+        {
+            try {
+                new File("src/data/userData.txt").createNewFile();
+                System.out.println("File created.");
+            }
+            catch (IOException ioException) {
+                System.out.println("File could not be created due to an unknown error.");
+                ioException.printStackTrace();
+            }
+        }
         catch(Exception e) {
             e.printStackTrace();
         }
@@ -133,7 +147,7 @@ public class DataStore {
     {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         
-        if (stackTrace.length > 2 && stackTrace[2].getClassName().equals("Java.Log")) 
+        if (stackTrace.length > 2 && stackTrace[2].getClassName().equals("Java.Log")) //checks the class that tries to access
         {
             ArrayList<String> theUsersData = new ArrayList<>();
             
@@ -146,6 +160,7 @@ public class DataStore {
             
             userData.put(username, theUsersData);
             
+            saveUserData();
             return true;
         }
         
@@ -181,7 +196,7 @@ public class DataStore {
     {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         
-        if (stackTrace.length > 2 && stackTrace[2].getClassName().equals("Java.Buy")) 
+        if (stackTrace.length > 2 && stackTrace[2].getClassName().equals("Java.Buy"))  //checks the class that tries to access
         {
             for(int i=1 ; i<months+1 ; i++)
             {
@@ -191,7 +206,7 @@ public class DataStore {
             
                 userData.get(loggedUsersName).set(i, newMonthsPayment);
             }
-            
+            saveUserData();
             return true;
         }
         
@@ -224,6 +239,17 @@ public class DataStore {
                         productData.put(data[0], data2List);
                     }
                 }
+            }
+        }
+        catch(FileNotFoundException e) //create file if it doesn't exist
+        {
+            try {
+                new File("src/data/productData.txt").createNewFile();
+                System.out.println("File created.");
+            }
+            catch (IOException ioException) {
+                System.out.println("File could not be created due to an unknown error.");
+                ioException.printStackTrace();
             }
         }
         catch(Exception e) {
@@ -294,6 +320,17 @@ public class DataStore {
                         bankData.put(data[0], data2List);
                     }
                 }
+            }
+        }
+        catch(FileNotFoundException e) //create file if it doesn't exist
+        {
+            try {
+                new File("src/data/bankData.txt").createNewFile();
+                System.out.println("File created.");
+            }
+            catch (IOException ioException) {
+                System.out.println("File could not be created due to an unknown error.");
+                ioException.printStackTrace();
             }
         }
         catch(Exception e) {

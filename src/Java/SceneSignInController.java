@@ -29,26 +29,20 @@ public class SceneSignInController {
     
     public void signInButtonPressed(ActionEvent e) //action
     {
-        if(Log.trySignIn(usernameSignInField.getText(), passwordSignInField.getText())) //checks if the username and password is correct
-        {
-            DataStore.loggedUsersName = usernameSignInField.getText();
-            openSceneMain(e);
-        }
-        else{
-            notificationSignIn.setText("Username or password is incorrect");
-        }
-    }
-    
-    public void backToSignUpButtonPressed(ActionEvent e) //action
-    {
-        switchToSceneSignUp(e);
+        trySignIn(e);
     }
     
     public void enterKeyPressed(KeyEvent e) //action
     {
         if (e.getCode() == KeyCode.ENTER)
         {
-            if(Log.trySignIn(usernameSignInField.getText(), passwordSignInField.getText())) //checks if the username and password is correct
+            trySignIn(e);
+        }
+    }
+    
+    public void trySignIn(Event e)
+    {
+        if(Log.trySignIn(usernameSignInField.getText(), passwordSignInField.getText())) //checks if the username and password is correct
             {
                 DataStore.loggedUsersName = usernameSignInField.getText();
                 openSceneMain(e);
@@ -56,7 +50,11 @@ public class SceneSignInController {
             else{
                 notificationSignIn.setText("Username or password is incorrect");
             }
-        }
+    }
+    
+    public void backToSignUpButtonPressed(ActionEvent e) //action
+    {
+        switchToSceneSignUp(e);
     }
     
     public void notificationSetNull(MouseEvent e) //clears notificationLabel

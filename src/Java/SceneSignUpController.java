@@ -12,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -28,6 +30,19 @@ public class SceneSignUpController {
     private PasswordField passwordSignUpField2;
     
     public void signUpButtonPressed(ActionEvent e) //action
+    {
+        trySignUp(e);
+    }
+    
+    public void enterKeyPressed(KeyEvent e) //action
+    {
+        if (e.getCode() == KeyCode.ENTER)
+        {
+            trySignUp(e);
+        }
+    }
+    
+    public void trySignUp(Event e)
     {
         if(Log.trySignUp(usernameSignUpField.getText(), passwordSignUpField.getText(), passwordSignUpField2.getText()))
         {
