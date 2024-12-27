@@ -206,6 +206,7 @@ public class DataStore {
             
                 userData.get(loggedUsersName).set(i, newMonthsPayment);
             }
+            
             saveUserData();
             return true;
         }
